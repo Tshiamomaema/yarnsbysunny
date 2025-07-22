@@ -94,14 +94,17 @@ function renderProducts(filter = 'all') {
   }
   filtered.forEach(product => {
     const card = document.createElement('div');
-    card.className = 'bg-white rounded-lg shadow p-4 flex flex-col';
+    card.className = 'bg-white rounded-lg shadow p-4 flex flex-col relative transition-transform duration-200 hover:-translate-y-2 hover:shadow-2xl group';
     card.innerHTML = `
-      <img src="${product.image}" alt="${product.name}" class="rounded mb-3 object-cover w-full" style="height:auto;" />
+      <button class="absolute top-2 right-2 text-pink-400 hover:text-pink-600 text-2xl opacity-0 group-hover:opacity-100 transition" title="Favorite">❤</button>
+      <div class="w-full aspect-square overflow-hidden rounded mb-3">
+        <img src="${product.image}" alt="${product.name}" class="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105" />
+      </div>
       <h3 class="text-lg font-bold text-pink-600 mb-1">${product.name}</h3>
-      <p class="text-gray-600 mb-2">${product.description}</p>
-      <div class="mt-auto">
+      <div class="mt-auto flex flex-col gap-2">
         <span class="block text-xl font-semibold text-gray-800 mb-2">R${product.price}</span>
         <button onclick="buyViaWhatsApp('${product.name}', ${product.price}, '${product.id}')" class="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded">Buy via WhatsApp</button>
+        <a href="product.html?id=${product.id}" class="w-full bg-white border border-pink-300 text-pink-500 hover:bg-pink-50 font-bold py-2 px-4 rounded transition text-center">View Details</a>
       </div>
     `;
     grid.appendChild(card);

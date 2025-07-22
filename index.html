@@ -6,6 +6,15 @@
   <title>Yarns | Fashion E-Commerce</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <style>
+    @keyframes yarn-spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .yarn-animate {
+      animation: yarn-spin 8s linear infinite;
+    }
+  </style>
 </head>
 <body class="bg-pink-50 text-gray-800">
   <!-- Top Logo Bar -->
@@ -20,23 +29,69 @@
   </div>
   <main class="pb-20">
     <!-- Full-Screen Welcome Image -->
-    <section id="welcome-hero" class="relative w-full min-h-screen flex flex-col justify-center items-center bg-pink-100 overflow-hidden" style="padding-top:56px;">
-      <div class="absolute z-20 top-13 left-0 w-full flex flex-col items-center justify-center text-center px-4 mt-0">
-        <h1 class="text-4xl md:text-5xl font-extrabold mb-4" style="color:#be185d; font-family: 'Dancing Script', cursive;">Welcome to Yarns</h1>
-        <p class="text-lg md:text-xl mb-8" style="color:#be185d; font-family: 'Dancing Script', cursive;">Cozy up in style with our latest yarn-based fashion.</p>
-        <a href="#products" class="mb-8 bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition">Shop Now</a>
-        <svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="110" cy="110" r="90" fill="#FFF" stroke="#F472B6" stroke-width="10"/>
-          <ellipse cx="110" cy="120" rx="70" ry="60" fill="#F9A8D4" opacity="0.7"/>
-          <path d="M60 120 Q90 80 150 120" stroke="#F472B6" stroke-width="6" fill="none"/>
-          <path d="M80 140 Q120 100 170 130" stroke="#F472B6" stroke-width="6" fill="none"/>
-          <path d="M100 160 Q140 120 180 150" stroke="#F472B6" stroke-width="6" fill="none"/>
-        </svg>
+    <section id="welcome-hero" class="relative w-full min-h-screen flex flex-col justify-center items-center bg-gradient-to-b from-pink-100 via-pink-50 to-white overflow-hidden" style="padding-top:56px;">
+      <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] h-[220px] z-0" style="filter: blur(40px); background: radial-gradient(circle at 60% 40%, #f9a8d4 60%, #fbcfe8 100%); opacity: 0.7;"></div>
+      <div class="relative flex flex-col items-center justify-center text-center px-4 mt-0 z-10">
+        <h1 class="relative text-4xl md:text-5xl font-extrabold mb-4 z-10" style="color:#be185d; font-family: 'Dancing Script', cursive;">Welcome to Yarns</h1>
+        <p class="relative text-lg md:text-xl mb-4 z-10" style="color:#be185d; font-family: 'Dancing Script', cursive;">Cozy up in style with our latest yarn-based fashion.</p>
+        <p class="relative text-base md:text-lg italic text-pink-700 mb-8 z-10">"Handcrafted warmth, delivered with love."</p>
+        <a href="#products" class="relative mb-8 bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition z-10">Shop Now</a>
       </div>
     </section>
+    <!-- Category Filters -->
+    <div class="flex flex-wrap justify-center gap-4 mb-8 mt-8">
+      <button class="filter-btn flex flex-col items-center bg-pink-100 hover:bg-pink-200 text-pink-700 font-semibold px-4 py-2 rounded-xl shadow transition" data-category="all">
+        <span class="text-2xl mb-1">🌈</span>
+        <span class="text-xs">All</span>
+      </button>
+      <button class="filter-btn flex flex-col items-center bg-purple-100 hover:bg-purple-200 text-purple-700 font-semibold px-4 py-2 rounded-xl shadow transition" data-category="Accessories">
+        <span class="text-2xl mb-1">🧢</span>
+        <span class="text-xs">Accessories</span>
+      </button>
+      <button class="filter-btn flex flex-col items-center bg-blue-100 hover:bg-blue-200 text-blue-700 font-semibold px-4 py-2 rounded-xl shadow transition" data-category="Tops">
+        <span class="text-2xl mb-1">🧥</span>
+        <span class="text-xs">Tops</span>
+      </button>
+      <button class="filter-btn flex flex-col items-center bg-pink-200 hover:bg-pink-300 text-pink-800 font-semibold px-4 py-2 rounded-xl shadow transition" data-category="Dresses">
+        <span class="text-2xl mb-1">👗</span>
+        <span class="text-xs">Dresses</span>
+      </button>
+      <button class="filter-btn flex flex-col items-center bg-yellow-100 hover:bg-yellow-200 text-yellow-700 font-semibold px-4 py-2 rounded-xl shadow transition" data-category="Bags">
+        <span class="text-2xl mb-1">👜</span>
+        <span class="text-xs">Bags</span>
+      </button>
+    </div>
     <!-- Product Grid -->
     <section id="products" class="container mx-auto py-8">
       <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+    </section>
+    <!-- Instagram Feed Preview -->
+    <section class="container mx-auto py-10">
+      <h2 class="text-2xl font-bold text-pink-500 mb-4 text-center" style="font-family: 'Dancing Script', cursive;">See What’s Trending</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+        <div class="relative group aspect-square overflow-hidden rounded-xl shadow bg-pink-100">
+          <img src="1000289536.jpg" alt="Instagram 1" class="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105" />
+          <a href="https://www.instagram.com/yarnsbysunnyy?igsh=MWVidjM2NW9kdGZrMA==" target="_blank" class="absolute inset-0 flex items-center justify-center bg-pink-900 bg-opacity-40 opacity-0 group-hover:opacity-100 transition text-white font-bold text-lg">View on Instagram</a>
+        </div>
+        <div class="relative group aspect-square overflow-hidden rounded-xl shadow bg-pink-100">
+          <img src="1000289544.jpg" alt="Instagram 2" class="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105" />
+          <a href="https://www.instagram.com/yarnsbysunnyy?igsh=MWVidjM2NW9kdGZrMA==" target="_blank" class="absolute inset-0 flex items-center justify-center bg-pink-900 bg-opacity-40 opacity-0 group-hover:opacity-100 transition text-white font-bold text-lg">View on Instagram</a>
+        </div>
+        <div class="relative group aspect-square overflow-hidden rounded-xl shadow bg-pink-100">
+          <img src="1000289564.jpg" alt="Instagram 3" class="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105" />
+          <a href="https://www.instagram.com/yarnsbysunnyy?igsh=MWVidjM2NW9kdGZrMA==" target="_blank" class="absolute inset-0 flex items-center justify-center bg-pink-900 bg-opacity-40 opacity-0 group-hover:opacity-100 transition text-white font-bold text-lg">View on Instagram</a>
+        </div>
+        <div class="relative group aspect-square overflow-hidden rounded-xl shadow bg-pink-100">
+          <img src="1000289576.jpg" alt="Instagram 4" class="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105" />
+          <a href="https://www.instagram.com/yarnsbysunnyy?igsh=MWVidjM2NW9kdGZrMA==" target="_blank" class="absolute inset-0 flex items-center justify-center bg-pink-900 bg-opacity-40 opacity-0 group-hover:opacity-100 transition text-white font-bold text-lg">View on Instagram</a>
+        </div>
+      </div>
+      <div class="flex justify-center">
+        <a href="https://www.instagram.com/yarnsbysunnyy?igsh=MWVidjM2NW9kdGZrMA==" target="_blank" class="bg-gradient-to-r from-pink-400 to-pink-600 text-white font-bold py-3 px-8 rounded-full shadow-lg text-lg flex items-center gap-2 hover:from-pink-500 hover:to-pink-700 transition">
+          <svg fill="currentColor" viewBox="0 0 24 24" class="w-6 h-6"><path d="M12 2.2c3.2 0 3.584.012 4.85.07 1.17.056 1.97.24 2.43.41.59.22 1.01.48 1.45.92.44.44.7.86.92 1.45.17.46.354 1.26.41 2.43.058 1.266.07 1.65.07 4.85s-.012 3.584-.07 4.85c-.056 1.17-.24 1.97-.41 2.43-.22.59-.48 1.01-.92 1.45-.44.44-.86.7-1.45.92-.46.17-1.26.354-2.43.41-1.266.058-1.65.07-4.85.07s-3.584-.012-4.85-.07c-1.17-.056-1.97-.24-2.43-.41-.59-.22-1.01-.48-1.45-.92-.44-.44-.7-.86-.92-1.45-.17-.46-.354-1.26-.41-2.43C2.212 15.784 2.2 15.4 2.2 12s.012-3.584.07-4.85c.056-1.17.24-1.97.41-2.43.22-.59.48-1.01.92-1.45.44-.44.86-.7 1.45-.92.46-.17 1.26-.354 2.43-.41C8.416 2.212 8.8 2.2 12 2.2zm0-2.2C8.736 0 8.332.013 7.052.072 5.77.13 4.73.31 3.89.6c-.84.29-1.56.68-2.29 1.41C.68 2.44.29 3.16 0 4c-.29.84-.47 1.88-.53 3.16C-.013 8.332 0 8.736 0 12c0 3.264.013 3.668.072 4.948.058 1.282.24 2.322.53 3.162.29.84.68 1.56 1.41 2.29.73.73 1.45 1.12 2.29 1.41.84.29 1.88.47 3.16.53C8.332 23.987 8.736 24 12 24c3.264 0 3.668-.013 4.948-.072 1.282-.058 2.322-.24 3.162-.53.84-.29 1.56-.68 2.29-1.41.73-.73 1.12-1.45 1.41-2.29.29-.84.47-1.88.53-3.16.059-1.28.072-1.684.072-4.948 0-3.264-.013-3.668-.072-4.948-.058-1.282-.24-2.322-.53-3.162-.29-.84-.68-1.56-1.41-2.29C21.56.68 20.84.29 20 .01c-.84-.29-1.88-.47-3.16-.53C15.668.013 15.264 0 12 0zm0 5.838A6.162 6.162 0 1 0 12 18.162 6.162 6.162 0 0 0 12 5.838zm0 10.162A4 4 0 1 1 12 7.838a4 4 0 0 1 0 8.162zm6.406-11.845a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg>
+          Follow us on Instagram
+        </a>
+      </div>
     </section>
     <!-- Floating Back to Top Button -->
     <button id="backToTop" class="hidden fixed bottom-24 right-4 z-50 bg-pink-500 hover:bg-pink-600 text-white rounded-full p-4 shadow-lg transition" aria-label="Back to Top">
