@@ -29,7 +29,7 @@
         <h1 class="relative text-4xl md:text-5xl font-extrabold mb-4 z-10" style="color:#be185d; font-family: 'Dancing Script', cursive;">Welcome to Yarns</h1>
         <p class="relative text-lg md:text-xl mb-4 z-10" style="color:#be185d; font-family: 'Dancing Script', cursive;">Cozy up in style with our latest yarn-based fashion.</p>
         <p class="relative text-base md:text-lg italic text-pink-700 mb-8 z-10">"Handcrafted warmth, delivered with love."</p>
-        <a href="#products" class="relative mb-8 bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition z-10">Shop Now</a>
+        <a href="#products" id="shopNowBtn" class="relative mb-8 bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition z-10">Shop Now</a>
       </div>
     </section>
     <!-- Category Filters -->
@@ -188,6 +188,17 @@ if (productsTab && productsDropdown) {
     if (!productsTab.contains(e.target)) {
       productsDropdown.classList.add('hidden');
       productsTab.classList.remove('bg-pink-100','shadow-lg');
+    }
+  });
+}
+// Smooth scroll for Shop Now button
+const shopNowBtn = document.getElementById('shopNowBtn');
+if (shopNowBtn) {
+  shopNowBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    const productsSection = document.getElementById('products');
+    if (productsSection) {
+      productsSection.scrollIntoView({ behavior: 'smooth' });
     }
   });
 }
