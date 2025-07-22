@@ -18,10 +18,10 @@ const products = [
   },
   {
     id: 'YRN008',
-    name: 'Winter Pom Beanie',
+    name: 'Yarn cute sky blue bag',
     description: 'A stylish beanie with a fluffy pom-pom, crafted from premium yarn for warmth and comfort.',
     price: 179,
-    category: 'Accessories',
+    category: 'Bags',
     image: '1000289564.jpg',
   },
   {
@@ -114,7 +114,7 @@ function renderProducts(filter = 'all') {
 // WhatsApp checkout
 function buyViaWhatsApp(name, price, id) {
   const msg = encodeURIComponent(`Hello, I’d like to buy this item from Yarns:\n- Product: ${name}\n- Price: R${price}\n- Ref: ${id}`);
-  const phone = '27614590003'; // Updated WhatsApp number
+  const phone = '27614590003'; //my whatsapp number
   window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
 }
 
