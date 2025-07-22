@@ -2,18 +2,18 @@
 const products = [
   {
     id: 'YRN006',
-    name: 'Pastel Cozy Cardigan',
-    description: 'A soft, pastel-colored chunky knit cardigan, perfect for layering in cooler weather.',
+    name: 'Full set for a sunny day',
+    description: 'A ful set bikini cover and top with a yarn hat to cover you from the sun',
     price: 549,
-    category: 'Tops',
+    category: 'Full set',
     image: '1000289536.jpg',
   },
   {
     id: 'YRN007',
-    name: 'Elegant Cable Knit Dress',
-    description: 'A long, elegant dress featuring intricate cable knit patterns and a flattering silhouette.',
+    name: 'Elegant Black and orange top',
+    description: 'A cute black and orange top that can go with any bottom , skirt,jeans and dresses.',
     price: 899,
-    category: 'Dresses',
+    category: 'Tops',
     image: '1000289544.jpg',
   },
   {
