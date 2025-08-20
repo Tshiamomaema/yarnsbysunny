@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/cart.css">
     <style>
         .cart-item-price {
             margin-top: 10px;
@@ -369,12 +370,12 @@
                 <div id="cart-summary" class="cart-summary" style="display: none;">
                     <h3 class="summary-title">Order Summary</h3>
                     <div class="summary-row">
-                        <span>Subtotal (${cart.reduce((total, item) => total + item.quantity, 0)} items)</span>
-                        <span id="subtotal">R${cart.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2)}</span>
+                        <span>Subtotal (${cart.reduce((sum, item) => sum + (item.quantity || 0), 0)} items)</span>
+                        <span id="subtotal">R0.00</span>
                     </div>
                     <div class="summary-row">
                         <span>Shipping</span>
-                        <span>To be calculated</span>
+                        <span id="shipping">Calculating...</span>
                     </div>
                     <div class="summary-total">
                         <span>Total</span>
@@ -386,30 +387,30 @@
         </div>
     </main>
 
+    <script src="js/cart.js"></script>
     <script>
-        // Cart functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const cart = JSON.parse(localStorage.getItem('cart')) || [];
-            const cartContent = document.getElementById('cart-content');
-            const emptyCart = document.getElementById('empty-cart');
-            const cartSummary = document.getElementById('cart-summary');
-            const subtotalEl = document.getElementById('subtotal');
-            const totalEl = document.getElementById('total');
-            const cartCount = document.querySelector('.cart-count');
-
-            // Update cart count
-            function updateCartCount() {
-                const count = cart.reduce((total, item) => total + item.quantity, 0);
-                cartCount.textContent = count;
-                if (count > 0) {
-                    cartCount.style.display = 'flex';
-                } else {
-                    cartCount.style.display = 'none';
-                }
-            }
+        // Get DOM elements
+        const cartItems = document.getElementById('cart-items');
+        const emptyCart = document.getElementById('empty-cart');
+        const cartSummary = document.getElementById('cart-summary');
+        const subtotalEl = document.getElementById('subtotal');
+        const shippingEl = document.getElementById('shipping');
+        const totalEl = document.getElementById('total');
+        
+        // Function to render cart items
+        function renderCart() {
+            // Get fresh cart data
+            cart = getCartFromStorage();
 
             // Render cart items
             function renderCart() {
+                // Ensure all prices are numbers
+                cart = cart.map(item => ({
+                    ...item,
+                    price: parseFloat(item.price) || 0,
+                    quantity: parseInt(item.quantity) || 1
+                }));
+                
                 if (cart.length === 0) {
                     emptyCart.style.display = 'block';
                     cartSummary.style.display = 'none';
@@ -513,8 +514,16 @@
                 const sizeSelector = itemEl.querySelector('.size-selector');
                 const size = sizeSelector ? sizeSelector.value : null;
 
+                // Update quantity and price display
                 cart[index].quantity = quantity;
                 if (size) cart[index].selectedSize = size;
+                
+                // Update the displayed price total for this item
+                const priceElement = itemEl.querySelector('.cart-item-price-total');
+                if (priceElement) {
+                    const itemPrice = cart[index].price * quantity;
+                    priceElement.textContent = `R${itemPrice.toFixed(2)}`;
+                }
                 
                 saveCart();
                 updateTotals();
@@ -523,68 +532,87 @@
 
             // Update totals
             function updateTotals() {
-                const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                // Calculate subtotal (sum of all items' price * quantity)
+                const subtotal = cart.reduce((sum, item) => {
+                    const price = parseFloat(item.price) || 0;
+                    const quantity = parseInt(item.quantity) || 0;
+                    return sum + (price * quantity);
+                }, 0);
+
+                // Calculate shipping (example: free shipping over R1000, otherwise R100)
+                const shipping = subtotal >= 1000 ? 0 : 100;
+                
+                // Calculate total
+                const total = subtotal + shipping;
+
+                // Update the DOM
                 subtotalEl.textContent = `R${subtotal.toFixed(2)}`;
-                totalEl.textContent = `R${subtotal.toFixed(2)}`;
+                shippingEl.textContent = shipping === 0 ? 'FREE' : `R${shipping.toFixed(2)}`;
+                totalEl.textContent = `R${total.toFixed(2)}`;
+                
+                // Save cart to persist the changes
+                saveCart();
             }
 
-            // Save cart to localStorage
-            function saveCart() {
-                localStorage.setItem('cart', JSON.stringify(cart));
-            }
-
-            // Initialize cart
-            updateCartCount();
-            renderCart();
-
+            // Update cart display based on items
+            function updateCartDisplay() {
+                if (cart.length === 0) {
+                    if (emptyCart) emptyCart.style.display = 'block';
+                    if (cartItems) cartItems.style.display = 'none';
+                    if (cartSummary) cartSummary.style.display = 'none';
+                } else {
+                    if (emptyCart) emptyCart.style.display = 'none';
+                    if (cartItems) cartItems.style.display = 'block';
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize cart display
+            updateCartDisplay();
+            
+            // Listen for cart updates from other tabs
+            window.addEventListener('storage', (event) => {
+                if (event.key === 'cart') {
+                    renderCart();
+                    updateCartDisplay();
+                }
+            });
+            
             // Checkout button
-            document.getElementById('checkout-btn').addEventListener('click', function() {
-                if (cart.length === 0) return;
-                
-                // Format message for WhatsApp
-                let message = "*NEW ORDER - YARNS BY SUNNY*%0A%0A";
-                message += "*CUSTOMER DETAILS*%0A";
-                message += "Name: [Customer Name]%0A";
-                message += "Phone: [Customer Phone]%0A";
-                message += "Email: [Customer Email]%0A";
-                message += "Delivery Address: [Full Delivery Address]%0A%0A";
-                
-                message += "*ORDER SUMMARY*%0A";
-                let orderTotal = 0;
-                
-                cart.forEach((item, index) => {
-                    const itemTotal = item.price * item.quantity;
-                    orderTotal += itemTotal;
-                    message += `*${index + 1}. ${item.name}*%0A`;
-                    message += `   Size: ${item.selectedSize || 'One Size'}%0A`;
-                    message += `   Qty: ${item.quantity} x R${item.price.toFixed(2)}%0A`;
-                    message += `   Total: R${itemTotal.toFixed(2)}%0A%0A`;
+            const checkoutBtn = document.getElementById('checkout-btn');
+            if (checkoutBtn) {
+                checkoutBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    if (cart.length === 0) {
+                        alert('Your cart is empty!');
+                        return;
+                    }
+                    
+                    // Format message for WhatsApp
+                    let message = "*NEW ORDER - YARNS BY SUNNY*%0A%0A";
+                    message += "*ORDER ITEMS*%0A";
+                    
+                    cart.forEach((item, index) => {
+                        message += `${index + 1}. ${item.name} (${item.selectedSize || 'One Size'}) - ${item.quantity} x R${parseFloat(item.price).toFixed(2)}%0A`;
+                    });
+                    
+                    const subtotal = cart.reduce((sum, item) => sum + (parseFloat(item.price) * parseInt(item.quantity)), 0);
+                    const shipping = subtotal >= 1000 ? 0 : 100;
+                    const total = subtotal + shipping;
+                    
+                    message += "%0A*ORDER SUMMARY*%0A";
+                    message += `Subtotal: R${subtotal.toFixed(2)}%0A`;
+                    message += `Shipping: ${shipping === 0 ? 'FREE' : 'R' + shipping.toFixed(2)}%0A`;
+                    message += `*Total: R${total.toFixed(2)}*%0A%0A`;
+                    message += "*CUSTOMER DETAILS*%0A";
+                    message += "Name: [Customer Name]%0A";
+                    message += "Phone: [Customer Phone]%0A";
+                    message += "Email: [Customer Email]%0A";
+                    message += "Address: [Delivery Address]";
+                    
+                    // Encode the message for URL
+                    const encodedMessage = encodeURIComponent(message);
+                    window.open(`https://wa.me/27655012345?text=${encodedMessage}`, '_blank');
                 });
-                
-                message += `*SUBTOTAL: R${orderTotal.toFixed(2)}*%0A`;
-                message += `*DELIVERY FEE: [To be calculated]%0A`;
-                message += `*TOTAL DUE: R${orderTotal.toFixed(2)}*%0A%0A`;
-                
-                message += "*DELIVERY INSTRUCTIONS*%0A";
-                message += "[Any special delivery instructions or access codes]%0A%0A";
-                
-                message += "*PAYMENT METHOD*%0A";
-                message += "[ ] EFT%0A";
-                message += "[ ] Cash on Delivery (if available)%0A";
-                message += "[ ] Other: [Please specify]%0A%0A";
-                
-                message += "*NOTES*%0A";
-                message += "[Any additional notes or special requests]%0A";
-                
-                // Replace with your WhatsApp number (with country code, remove any +, spaces, or special characters)
-                const phoneNumber = "27665554433"; // Example: Replace with your number
-                
-                // Open WhatsApp with the message
-                window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
-                
-                // Optional: Clear cart after checkout
-                // localStorage.removeItem('cart');
-                // location.reload();
+            }
             });
 
             // Mobile menu toggle

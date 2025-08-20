@@ -236,9 +236,8 @@
                     <div class="product-info">
                         <span class="product-category">Dresses</span>
                         <h3 class="product-title">Elegant Evening Gown</h3>
-                        <div class="product-price">
+                        <div class="price">
                             <span class="current-price">R899.99</span>
-                            <span class="original-price">R1,199.99</span>
                         </div>
                         <select class="size-selector" style="width: 100%; margin-bottom: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
                             <option value="">Select Size</option>
@@ -247,7 +246,14 @@
                             <option value="L">Large (L)</option>
                             <option value="XL">Extra Large (XL)</option>
                         </select>
-                        <button class="add-to-cart">Add to Cart</button>
+                        <button class="add-to-cart" onclick="addToCart({
+    id: this.closest('.product-card').dataset.id,
+    name: this.closest('.product-card').querySelector('h3').textContent,
+    price: parseFloat(this.closest('.product-card').dataset.price) || 0,
+    image: this.closest('.product-card').querySelector('img').src,
+    quantity: 1,
+    selectedSize: this.closest('.product-card').querySelector('.size-selector')?.value
+}); event.preventDefault();">Add to Cart</button>
                     </div>
                 </div>
 
@@ -270,7 +276,14 @@
                             <option value="M">Medium (M)</option>
                             <option value="L">Large (L)</option>
                         </select>
-                        <button class="add-to-cart">Add to Cart</button>
+                        <button class="add-to-cart" onclick="addToCart({
+    id: this.closest('.product-card').dataset.id,
+    name: this.closest('.product-card').querySelector('h3').textContent,
+    price: parseFloat(this.closest('.product-card').dataset.price) || 0,
+    image: this.closest('.product-card').querySelector('img').src,
+    quantity: 1,
+    selectedSize: this.closest('.product-card').querySelector('.size-selector')?.value
+}); event.preventDefault();">Add to Cart</button>
                     </div>
                 </div>
 
@@ -294,7 +307,14 @@
                             <option value="L">Large (L)</option>
                             <option value="XL">Extra Large (XL)</option>
                         </select>
-                        <button class="add-to-cart">Add to Cart</button>
+                        <button class="add-to-cart" onclick="addToCart({
+    id: this.closest('.product-card').dataset.id,
+    name: this.closest('.product-card').querySelector('h3').textContent,
+    price: parseFloat(this.closest('.product-card').dataset.price) || 0,
+    image: this.closest('.product-card').querySelector('img').src,
+    quantity: 1,
+    selectedSize: this.closest('.product-card').querySelector('.size-selector')?.value
+}); event.preventDefault();">Add to Cart</button>
                     </div>
                 </div>
 
@@ -316,7 +336,14 @@
                             <option value="M">Medium (M)</option>
                             <option value="L">Large (L)</option>
                         </select>
-                        <button class="add-to-cart">Add to Cart</button>
+                        <button class="add-to-cart" onclick="addToCart({
+    id: this.closest('.product-card').dataset.id,
+    name: this.closest('.product-card').querySelector('h3').textContent,
+    price: parseFloat(this.closest('.product-card').dataset.price) || 0,
+    image: this.closest('.product-card').querySelector('img').src,
+    quantity: 1,
+    selectedSize: this.closest('.product-card').querySelector('.size-selector')?.value
+}); event.preventDefault();">Add to Cart</button>
                     </div>
                 </div>
 
@@ -338,7 +365,14 @@
                             <option value="L">Large (L)</option>
                             <option value="XL">Extra Large (XL)</option>
                         </select>
-                        <button class="add-to-cart">Add to Cart</button>
+                        <button class="add-to-cart" onclick="addToCart({
+    id: this.closest('.product-card').dataset.id,
+    name: this.closest('.product-card').querySelector('h3').textContent,
+    price: parseFloat(this.closest('.product-card').dataset.price) || 0,
+    image: this.closest('.product-card').querySelector('img').src,
+    quantity: 1,
+    selectedSize: this.closest('.product-card').querySelector('.size-selector')?.value
+}); event.preventDefault();">Add to Cart</button>
                     </div>
                 </div>
 
@@ -360,7 +394,14 @@
                             <option value="M">Medium (M)</option>
                             <option value="L">Large (L)</option>
                         </select>
-                        <button class="add-to-cart">Add to Cart</button>
+                        <button class="add-to-cart" onclick="addToCart({
+    id: this.closest('.product-card').dataset.id,
+    name: this.closest('.product-card').querySelector('h3').textContent,
+    price: parseFloat(this.closest('.product-card').dataset.price) || 0,
+    image: this.closest('.product-card').querySelector('img').src,
+    quantity: 1,
+    selectedSize: this.closest('.product-card').querySelector('.size-selector')?.value
+}); event.preventDefault();">Add to Cart</button>
                     </div>
                 </div>
 
@@ -384,7 +425,14 @@
                             <option value="M">Medium (M)</option>
                             <option value="L">Large (L)</option>
                         </select>
-                        <button class="add-to-cart">Add to Cart</button>
+                        <button class="add-to-cart" onclick="addToCart({
+    id: this.closest('.product-card').dataset.id,
+    name: this.closest('.product-card').querySelector('h3').textContent,
+    price: parseFloat(this.closest('.product-card').dataset.price) || 0,
+    image: this.closest('.product-card').querySelector('img').src,
+    quantity: 1,
+    selectedSize: this.closest('.product-card').querySelector('.size-selector')?.value
+}); event.preventDefault();">Add to Cart</button>
                     </div>
                 </div>
 
@@ -407,7 +455,14 @@
                             <option value="L">Large (L)</option>
                             <option value="XL">Extra Large (XL)</option>
                         </select>
-                        <button class="add-to-cart">Add to Cart</button>
+                        <button class="add-to-cart" onclick="addToCart({
+    id: this.closest('.product-card').dataset.id,
+    name: this.closest('.product-card').querySelector('h3').textContent,
+    price: parseFloat(this.closest('.product-card').dataset.price) || 0,
+    image: this.closest('.product-card').querySelector('img').src,
+    quantity: 1,
+    selectedSize: this.closest('.product-card').querySelector('.size-selector')?.value
+}); event.preventDefault();">Add to Cart</button>
                     </div>
                 </div>
             </div>
@@ -461,5 +516,6 @@
     </footer>
 
     <script src="js/script.js"></script>
+    <script src="js/cart.js"></script>
 </body>
 </html>
