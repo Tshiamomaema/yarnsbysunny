@@ -1,22 +1,58 @@
 // Mobile Navigation Toggle
 const hamburger = document.querySelector('.hamburger');
 const navLinks = document.querySelector('.nav-links');
+const body = document.body;
+
+function toggleMenu() {
+    const isMenuOpen = hamburger.classList.toggle('active');
+    navLinks.classList.toggle('active');
+    
+    // Toggle body scroll and position fixed when menu is open
+    if (isMenuOpen) {
+        body.classList.add('menu-open');
+        // Prevent background scrolling when menu is open
+        document.documentElement.style.overflow = 'hidden';
+    } else {
+        body.classList.remove('menu-open');
+        document.documentElement.style.overflow = '';
+    }
+}
 
 if (hamburger && navLinks) {
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        navLinks.classList.toggle('active');
+    hamburger.addEventListener('click', toggleMenu);
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        const isClickInsideNav = navLinks.contains(e.target) || hamburger.contains(e.target);
+        if (!isClickInsideNav && navLinks.classList.contains('active')) {
+            toggleMenu();
+        }
     });
 }
 
-// Close mobile menu when clicking on a nav link
+// Close mobile menu when clicking on a nav link or when window is resized above mobile breakpoint
+function closeMobileMenu() {
+    if (window.innerWidth <= 992) {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('active');
+        body.classList.remove('menu-open');
+        document.documentElement.style.overflow = '';
+    }
+}
+
 document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-        if (window.innerWidth <= 768) {
-            hamburger.classList.remove('active');
-            navLinks.classList.remove('active');
+    link.addEventListener('click', closeMobileMenu);
+});
+
+// Handle window resize
+let resizeTimer;
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+        if (window.innerWidth > 992) {
+            closeMobileMenu();
         }
-    });
+    }, 250);
 });
 
 // Smooth scrolling for anchor links
