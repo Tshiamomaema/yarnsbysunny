@@ -5,7 +5,9 @@ let cart = [];
 function getCartFromStorage() {
     try {
         const savedCart = localStorage.getItem('cart');
-        return savedCart ? JSON.parse(savedCart) : [];
+        const parsedCart = savedCart ? JSON.parse(savedCart) : [];
+        // Ensure we always return an array
+        return Array.isArray(parsedCart) ? parsedCart : [];
     } catch (e) {
         console.error('Error reading cart from storage:', e);
         return [];
@@ -15,11 +17,8 @@ function getCartFromStorage() {
 // Initialize cart from localStorage
 function initCart() {
     cart = getCartFromStorage();
-    if (!Array.isArray(cart)) {
-        cart = [];
-        saveCart();
-    }
     updateCartCount();
+    return cart;
 }
 
 // Add to cart functionality
@@ -92,19 +91,12 @@ function addToCart(product) {
 // Update cart count in the header and return the count
 function updateCartCount() {
     // Always get fresh data from localStorage
-    cart = getCartFromStorage();
-    
+    const currentCart = getCartFromStorage();
     const cartCount = document.querySelector('.cart-count');
+    
     if (!cartCount) return 0;
     
-    // Ensure cart is an array
-    if (!Array.isArray(cart)) {
-        cart = [];
-        saveCart();
-    }
-    
-    // Calculate total items in cart
-    const count = cart.reduce((total, item) => {
+    const count = currentCart.reduce((total, item) => {
         const quantity = parseInt(item.quantity) || 0;
         return total + (isNaN(quantity) ? 0 : quantity);
     }, 0);
@@ -112,12 +104,6 @@ function updateCartCount() {
     // Update the cart count display
     cartCount.textContent = count;
     cartCount.style.display = count > 0 ? 'flex' : 'none';
-    
-    // If cart is empty but still has items, clear it
-    if (count === 0 && cart.length > 0) {
-        cart = [];
-        saveCart();
-    }
     
     return count;
 }
@@ -150,16 +136,28 @@ function updateCartTotal() {
 }
 
 // Save cart to localStorage and update count
-function saveCart() {
+function saveCart(cartData = cart) {
     try {
-        localStorage.setItem('cart', JSON.stringify(cart));
-        // Update count in all open tabs/windows
+        // Ensure we're saving a valid array
+        const cartToSave = Array.isArray(cartData) ? cartData : [];
+        localStorage.setItem('cart', JSON.stringify(cartToSave));
+        
+        // Update the in-memory cart
+        cart = cartToSave;
+        
+        // Trigger storage event to sync across tabs
         if (typeof Storage !== 'undefined') {
             localStorage.setItem('cart_updated', Date.now().toString());
         }
+        
+        // Update cart count
         updateCartCount();
+        
+        // Return the saved cart
+        return cartToSave;
     } catch (e) {
         console.error('Error saving cart:', e);
+        return [];
     }
 }
 
@@ -182,15 +180,30 @@ function showNotification(message) {
 
 // Initialize cart functionality on page load
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize cart
     initCart();
-    updateCartTotal();
     
-    // Listen for storage events to update cart count when changed in another tab
+    // Update cart total if on cart page
+    if (document.getElementById('cart-total')) {
+        updateCartTotal();
+    }
+    
+    // Listen for storage events to update cart when changed in another tab
     if (typeof window !== 'undefined') {
         window.addEventListener('storage', (event) => {
             if (event.key === 'cart' || event.key === 'cart_updated') {
-                initCart();
-                updateCartTotal();
+                // Update the cart
+                const updatedCart = getCartFromStorage();
+                cart = updatedCart;
+                
+                // Update the UI
+                updateCartCount();
+                
+                // If we're on the cart page, update the cart display
+                if (document.getElementById('cart-items')) {
+                    // This would be handled by the cart page's specific code
+                    window.location.reload(); // Simple solution to ensure UI updates
+                }
             }
         });
     }
