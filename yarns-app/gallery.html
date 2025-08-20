@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Yarns by Sunny</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Gallery Styles */
+        .gallery-page {
+            padding: 120px 0 80px;
+            background-color: #f8f5f0;
+            min-height: 100vh;
+        }
+
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 0 20px;
+        }
+
+        .gallery-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .gallery-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--accent-color);
+        }
+
+        .gallery-subtitle {
+            color: var(--light-text);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .gallery-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            background: transparent;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+
+        .masonry-grid {
+            column-count: 3;
+            column-gap: 25px;
+            padding: 0 20px;
+        }
+
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 25px;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .masonry-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .masonry-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.7s ease;
+        }
+
+        .masonry-item:hover .masonry-img {
+            transform: scale(1.05);
+        }
+
+        .masonry-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.7));
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 25px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .masonry-item:hover .masonry-overlay {
+            opacity: 1;
+        }
+
+        .masonry-title {
+            color: white;
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            transform: translateY(20px);
+            transition: transform 0.5s ease;
+        }
+
+        .masonry-category {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
+            transform: translateY(20px);
+            transition: transform 0.5s ease 0.1s;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .masonry-item:hover .masonry-title,
+        .masonry-item:hover .masonry-category {
+            transform: translateY(0);
+        }
+
+        .gallery-cta {
+            text-align: center;
+            margin-top: 80px;
+            padding: 0 20px;
+        }
+
+        .gallery-cta h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .gallery-cta p {
+            color: var(--light-text);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background-color: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--accent-color);
+        }
+
+        .cta-btn:hover {
+            background: transparent;
+            color: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(200, 169, 126, 0.3);
+        }
+
+        @media (max-width: 1024px) {
+            .masonry-grid {
+                column-count: 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gallery-page {
+                padding: 100px 0 60px;
+            }
+
+            .gallery-title {
+                font-size: 2.8rem;
+            }
+
+            .masonry-grid {
+                column-count: 1;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .gallery-cta h2 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fadeInUp {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">YARNS</a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="shop.html">Shop</a>
+                <a href="about.html">About</a>
+                <a href="gallery.html" class="active">Gallery</a>
+                <a href="contact.html">Contact</a>
+                <a href="cart.html" class="cart-icon"><i class="fas fa-shopping-bag"></i><span class="cart-count">0</span></a>
+            </div>
+            <button class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="gallery-page">
+        <div class="gallery-header">
+            <h1 class="gallery-title">Design Gallery</h1>
+            <p class="gallery-subtitle">Explore our latest collections and be inspired by the artistry of Yarns by Sunny</p>
+        </div>
+
+        <div class="container">
+            <div class="gallery-filters">
+                <button class="filter-btn active" data-filter="all">All Collections</button>
+                <button class="filter-btn" data-filter="dresses">Dresses</button>
+                <button class="filter-btn" data-filter="tops">Tops</button>
+                <button class="filter-btn" data-filter="bottoms">Bottoms</button>
+                <button class="filter-btn" data-filter="accessories">Accessories</button>
+            </div>
+
+            <div class="masonry-grid">
+                <!-- Item 1 -->
+                <div class="masonry-item animate-fadeInUp delay-1" data-category="dresses">
+                    <img src="assets/1000289536.jpg" alt="Elegant Evening Gown" class="masonry-img">
+                    <div class="masonry-overlay">
+                        <h3 class="masonry-title">Silk Evening Gown</h3>
+                        <span class="masonry-category">Evening Wear</span>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="masonry-item animate-fadeInUp delay-2" data-category="tops">
+                    <img src="assets/1000289538.jpg" alt="Lace Blouse" class="masonry-img">
+                    <div class="masonry-overlay">
+                        <h3 class="masonry-title">Lace Blouse</h3>
+                        <span class="masonry-category">Casual Wear</span>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="masonry-item animate-fadeInUp delay-3" data-category="dresses">
+                    <img src="assets/1000289544.jpg" alt="Floral Summer Dress" class="masonry-img">
+                    <div class="masonry-overlay">
+                        <h3 class="masonry-title">Floral Summer Dress</h3>
+                        <span class="masonry-category">Summer Collection</span>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="masonry-item animate-fadeInUp delay-4" data-category="tops">
+                    <img src="assets/1000289548.jpg" alt="Silk Blouse" class="masonry-img">
+                    <div class="masonry-overlay">
+                        <h3 class="masonry-title">Silk Blouse</h3>
+                        <span class="masonry-category">Office Wear</span>
+                    </div>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="masonry-item animate-fadeInUp delay-1" data-category="dresses">
+                    <img src="assets/1000289560.jpg" alt="Casual Day Dress" class="masonry-img">
+                    <div class="masonry-overlay">
+                        <h3 class="masonry-title">Casual Day Dress</h3>
+                        <span class="masonry-category">Day Wear</span>
+                    </div>
+                </div>
+
+                <!-- Item 6 -->
+                <div class="masonry-item animate-fadeInUp delay-2" data-category="bottoms">
+                    <img src="assets/1000289564.jpg" alt="Midi Skirt" class="masonry-img">
+                    <div class="masonry-overlay">
+                        <h3 class="masonry-title">Midi Skirt</h3>
+                        <span class="masonry-category">Office Wear</span>
+                    </div>
+                </div>
+
+                <!-- Item 7 -->
+                <div class="masonry-item animate-fadeInUp delay-3" data-category="tops">
+                    <img src="assets/1000289568.jpg" alt="Satin Blouse" class="masonry-img">
+                    <div class="masonry-overlay">
+                        <h3 class="masonry-title">Satin Blouse</h3>
+                        <span class="masonry-category">Evening Wear</span>
+                    </div>
+                </div>
+
+                <!-- Item 8 -->
+                <div class="masonry-item animate-fadeInUp delay-4" data-category="dresses">
+                    <img src="assets/1000289576.jpg" alt="Evening Gown" class="masonry-img">
+                    <div class="masonry-overlay">
+                        <h3 class="masonry-title">Evening Gown</h3>
+                        <span class="masonry-category">Special Occasion</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="gallery-cta">
+            <h2>Ready to Find Your Perfect Look?</h2>
+            <p>Explore our full collection and discover pieces that speak to your personal style.</p>
+            <a href="shop.html" class="cta-btn">Shop Now</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>YARNS by Sunny</h3>
+                    <p>Sustainable fashion for the modern individual.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="shop.html">Shop</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="#">Shipping & Returns</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe for updates and exclusive offers</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 YARNS by Sunny. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+        }
+
+        // Filter functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.masonry-item');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                const filter = button.getAttribute('data-filter');
+                
+                galleryItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fadeInUp');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all masonry items
+        document.querySelectorAll('.masonry-item').forEach((item, index) => {
+            // Remove inline animation classes to prevent flash
+            item.classList.remove('animate-fadeInUp', 'delay-1', 'delay-2', 'delay-3', 'delay-4');
+            // Add staggered delay classes
+            const delayClass = `delay-${(index % 4) + 1}`;
+            item.classList.add(delayClass);
+            // Start observing
+            observer.observe(item);
+        });
+    </script>
+    <script src="js/script.js"></script>
+</body>
+</html>
