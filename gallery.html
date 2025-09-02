@@ -53,6 +53,16 @@
                     <div class="masonry-overlay">
                         <h3 class="masonry-title">Silk Evening Gown</h3>
                         <span class="masonry-category">Evening Wear</span>
+                        <div class="product-actions">
+                            <span class="price">$129.99</span>
+                            <button class="add-to-cart" 
+                                    data-id="gown-1" 
+                                    data-name="Silk Evening Gown" 
+                                    data-price="129.99" 
+                                    data-image="assets/1000289536.jpg">
+                                Add to Cart
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -62,6 +72,16 @@
                     <div class="masonry-overlay">
                         <h3 class="masonry-title">Lace Blouse</h3>
                         <span class="masonry-category">Casual Wear</span>
+                        <div class="product-actions">
+                            <span class="price">$79.99</span>
+                            <button class="add-to-cart" 
+                                    data-id="blouse-1" 
+                                    data-name="Lace Blouse" 
+                                    data-price="79.99" 
+                                    data-image="assets/1000289538.jpg">
+                                Add to Cart
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -71,6 +91,16 @@
                     <div class="masonry-overlay">
                         <h3 class="masonry-title">Floral Summer Dress</h3>
                         <span class="masonry-category">Summer Collection</span>
+                        <div class="product-actions">
+                            <span class="price">$89.99</span>
+                            <button class="add-to-cart" 
+                                    data-id="dress-1" 
+                                    data-name="Floral Summer Dress" 
+                                    data-price="89.99" 
+                                    data-image="assets/1000289544.jpg">
+                                Add to Cart
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -80,6 +110,16 @@
                     <div class="masonry-overlay">
                         <h3 class="masonry-title">Silk Blouse</h3>
                         <span class="masonry-category">Office Wear</span>
+                        <div class="product-actions">
+                            <span class="price">$99.99</span>
+                            <button class="add-to-cart" 
+                                    data-id="blouse-2" 
+                                    data-name="Silk Blouse" 
+                                    data-price="99.99" 
+                                    data-image="assets/1000289548.jpg">
+                                Add to Cart
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -89,6 +129,16 @@
                     <div class="masonry-overlay">
                         <h3 class="masonry-title">Casual Day Dress</h3>
                         <span class="masonry-category">Day Wear</span>
+                        <div class="product-actions">
+                            <span class="price">$69.99</span>
+                            <button class="add-to-cart" 
+                                    data-id="dress-2" 
+                                    data-name="Casual Day Dress" 
+                                    data-price="69.99" 
+                                    data-image="assets/1000289560.jpg">
+                                Add to Cart
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -98,6 +148,16 @@
                     <div class="masonry-overlay">
                         <h3 class="masonry-title">Midi Skirt</h3>
                         <span class="masonry-category">Office Wear</span>
+                        <div class="product-actions">
+                            <span class="price">$59.99</span>
+                            <button class="add-to-cart" 
+                                    data-id="skirt-1" 
+                                    data-name="Midi Skirt" 
+                                    data-price="59.99" 
+                                    data-image="assets/1000289564.jpg">
+                                Add to Cart
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -174,7 +234,32 @@
         </div>
     </footer>
 
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <button class="close-cart">&times;</button>
+        </div>
+        <div class="cart-content">
+            <div class="cart-items">
+                <!-- Cart items will be added here dynamically -->
+            </div>
+            <div class="empty-cart">
+                <p>Your cart is empty</p>
+                <a href="shop.html" class="cta-btn">Continue Shopping</a>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span class="total-amount">$0.00</span>
+            </div>
+            <a href="checkout.html" class="checkout-btn">Proceed to Checkout</a>
+        </div>
+    </div>
+
     <script src="js/script.js"></script>
     <script src="js/gallery.js"></script>
+    <script src="js/cart.js"></script>
 </body>
 </html>
