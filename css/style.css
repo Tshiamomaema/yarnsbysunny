@@ -157,6 +157,36 @@ img {
     background-color: rgba(0, 0, 0, 0.05);
 }
 
+/* WhatsApp Buy Now Button */
+.buy-now-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #25D366;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.buy-now-btn i {
+    margin-right: 8px;
+    font-size: 1.1em;
+}
+
+.buy-now-btn:hover {
+    background-color: #128C7E;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 /* Cart Sidebar */
 .cart-sidebar {
     position: fixed;
