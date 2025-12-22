@@ -341,36 +341,28 @@
 
 .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 40px;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 60px 40px;
     padding: 0 20px;
 }
 
 /* Specific Art Gallery Item Styling */
 .gallery-item {
-    grid-column: span 4;
     position: relative;
     background: white;
     padding: 15px;
     /* Frame border */
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     border: 1px solid #f0f0f0;
-    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-    cursor: crosshair;
-    /* Artistic cursor */
+    transition: all 0.4s ease;
+    cursor: pointer;
     overflow: visible;
-    /* For label offset */
 }
 
-/* Alternating Sizes for Gallery Feel */
-.gallery-item:nth-child(2n) {
-    grid-column: span 5;
-    transform: translateY(30px);
-}
-
+/* Uniform Sizes - Removing Staggered Layout */
+.gallery-item:nth-child(2n),
 .gallery-item:nth-child(3n) {
-    grid-column: span 3;
-    transform: translateY(-20px);
+    transform: none;
 }
 
 .gallery-item:hover {
@@ -381,42 +373,40 @@
 
 .gallery-item img {
     width: 100%;
-    height: auto;
-    aspect-ratio: 4/5;
+    height: 450px;
+    /* Fixed height for uniformity */
     object-fit: cover;
     display: block;
-    filter: grayscale(10%);
-    /* Subtle artistic filter */
-    transition: all 0.8s ease;
+    filter: none;
+    transition: transform 0.8s ease;
 }
 
 .gallery-item:hover img {
-    filter: grayscale(0%);
+    transform: scale(1.03);
 }
 
-/* Museum Style Label */
+/* Museum Style Label - Always Visible */
 .gallery-overlay {
     position: absolute;
-    bottom: -30px;
-    right: -20px;
-    width: auto;
-    min-width: 180px;
+    bottom: -20px;
+    right: -10px;
+    width: calc(100% - 40px);
+    max-width: 280px;
     height: auto;
     background: white;
-    padding: 20px;
-    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.08);
-    opacity: 0;
-    transform: translateY(10px);
-    transition: all 0.4s ease;
-    border: 1px solid #f5f5f5;
+    padding: 15px 20px;
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.08);
+    opacity: 1;
+    /* Always visible */
+    transform: none;
+    border: 1px solid #f0f0f0;
     z-index: 2;
-    pointer-events: none;
+    pointer-events: auto;
     display: block;
 }
 
 .gallery-item:hover .gallery-overlay {
-    opacity: 1;
-    transform: translateY(0);
+    box-shadow: 15px 15px 40px rgba(0, 0, 0, 0.12);
 }
 
 .gallery-overlay h3 {
