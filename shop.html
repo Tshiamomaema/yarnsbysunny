@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop - Yarns by Sunny</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/shop.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body>
     <nav class="navbar">
         <div class="container">
@@ -44,9 +48,8 @@
                     <label for="category">Category:</label>
                     <select id="category">
                         <option value="all">All Categories</option>
-                        <option value="dresses">Dresses</option>
+                        <option value="sets">Sets</option>
                         <option value="tops">Tops</option>
-                        <option value="bottoms">Bottoms</option>
                         <option value="accessories">Accessories</option>
                     </select>
                 </div>
@@ -63,197 +66,226 @@
 
             <div class="products-grid">
                 <!-- Product 1 -->
-                <div class="product-card" data-id="prod-001" data-category="Dresses" data-price="899.99" data-sizes="S,M,L,XL">
+                <div class="product-card" data-id="prod-001" data-category="sets" data-price="999.99"
+                    data-sizes="S,M,L,XL">
                     <div class="product-image">
-                        <img src="assets/1000289536.jpg" alt="Elegant Dress">
-                        <span class="sale-badge">Sale</span>
+                        <img src="assets/1000289536.jpg" alt="Pink Striped Set">
+                        <span class="new-badge">New</span>
                     </div>
                     <div class="product-info">
-                        <span class="product-category">Dresses</span>
-                        <h3 class="product-title">Elegant Evening Gown</h3>
+                        <span class="product-category">Sets</span>
+                        <h3 class="product-title">Pink & Cream Striped Crochet Set</h3>
                         <div class="price">
-                            <span class="current-price">R899.99</span>
+                            <span class="current-price">R999.99</span>
                         </div>
-                        <select class="size-selector" style="width: 100%; margin-bottom: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                        <select class="size-selector"
+                            style="width: 100%; margin-bottom: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
                             <option value="">Select Size</option>
                             <option value="S">Small (S)</option>
                             <option value="M">Medium (M)</option>
                             <option value="L">Large (L)</option>
                             <option value="XL">Extra Large (XL)</option>
                         </select>
-                        <a href="https://wa.me/27697027389?text=Hi%20Sunny,%20I'd%20like%20to%20purchase%20this%20item:%20" + encodeURIComponent(document.querySelector('.product-title').textContent) + "%20(Size:%20" + (document.querySelector('.size-selector')?.value || 'N/A') + ")" class="buy-now-btn">
+                        <a href="#" class="buy-now-btn">
                             <i class="fab fa-whatsapp"></i> Buy Now
                         </a>
                     </div>
                 </div>
 
                 <!-- Product 2 -->
-                <div class="product-card" data-id="prod-002" data-category="Tops" data-price="599.99" data-sizes="XS,S,M,L">
+                <div class="product-card" data-id="prod-002" data-category="accessories" data-price="299.99"
+                    data-sizes="One Size">
                     <div class="product-image">
-                        <img src="assets/1000289538.jpg" alt="Lace Blouse">
-                        <span class="new-badge">New</span>
+                        <img src="assets/1000289538.jpg" alt="Orange Beanie">
+                        <span class="sale-badge">Sale</span>
                     </div>
                     <div class="product-info">
-                        <span class="product-category">Tops</span>
-                        <h3 class="product-title">Lace Blouse</h3>
+                        <span class="product-category">Accessories</span>
+                        <h3 class="product-title">Bright Orange Crochet Beanie</h3>
                         <div class="product-price">
-                            <span class="current-price">R599.99</span>
+                            <span class="current-price">R299.99</span>
                         </div>
-                        <select class="size-selector" style="width: 100%; margin-bottom: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                        <select class="size-selector"
+                            style="width: 100%; margin-bottom: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
                             <option value="">Select Size</option>
-                            <option value="XS">X-Small (XS)</option>
-                            <option value="S">Small (S)</option>
-                            <option value="M">Medium (M)</option>
-                            <option value="L">Large (L)</option>
+                            <option value="One Size">One Size</option>
                         </select>
-                        <a href="https://wa.me/27697027389?text=Hi%20Sunny,%20I'd%20like%20to%20purchase%20this%20item:%20" + encodeURIComponent(this.closest('.product-card').querySelector('h3').textContent) + "%20(Size:%20" + (this.closest('.product-card').querySelector('.size-selector')?.value || 'N/A') + ")" class="buy-now-btn">
+                        <a href="https://wa.me/27697027389?text=Hi%20Sunny,%20I'd%20like%20to%20purchase%20this%20item:%20"
+                            + encodeURIComponent(this.closest('.product-card').querySelector('h3').textContent)
+                            + "%20(Size:%20" + (this.closest('.product-card').querySelector('.size-selector')?.value
+                            || 'N/A' ) + ")" class="buy-now-btn">
                             <i class="fab fa-whatsapp"></i> Buy Now
                         </a>
                     </div>
                 </div>
 
                 <!-- Product 3 -->
-                <div class="product-card" data-id="prod-003" data-category="Dresses" data-price="1299.99" data-sizes="S,M,L,XL">
+                <div class="product-card" data-id="prod-003" data-category="tops" data-price="599.99"
+                    data-sizes="XS,S,M,L">
                     <div class="product-image">
-                        <img src="assets/1000289544.jpg" alt="Summer Dress">
-                        <span class="sale-badge">Sale</span>
+                        <img src="assets/1000289544.jpg" alt="Two-Tone Halter Top">
+                        <span class="new-badge">New</span>
                     </div>
                     <div class="product-info">
-                        <span class="product-category">Dresses</span>
-                        <h3 class="product-title">Floral Summer Dress</h3>
+                        <span class="product-category">Tops</span>
+                        <h3 class="product-title">Black & Orange Two-Tone Halter Top</h3>
                         <div class="product-price">
-                            <span class="current-price">R1,299.99</span>
+                            <span class="current-price">R599.99</span>
                         </div>
-                        <select class="size-selector" style="width: 100%; margin-bottom: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                        <select class="size-selector"
+                            style="width: 100%; margin-bottom: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
                             <option value="">Select Size</option>
+                            <option value="XS">X-Small (XS)</option>
                             <option value="S">Small (S)</option>
                             <option value="M">Medium (M)</option>
                             <option value="L">Large (L)</option>
-                            <option value="XL">Extra Large (XL)</option>
                         </select>
-                        <a href="https://wa.me/27697027389?text=Hi%20Sunny,%20I'd%20like%20to%20purchase%20this%20item:%20" + encodeURIComponent(this.closest('.product-card').querySelector('h3').textContent) + "%20(Size:%20" + (this.closest('.product-card').querySelector('.size-selector')?.value || 'N/A') + ")" class="buy-now-btn">
+                        <a href="https://wa.me/27697027389?text=Hi%20Sunny,%20I'd%20like%20to%20purchase%20this%20item:%20"
+                            + encodeURIComponent(this.closest('.product-card').querySelector('h3').textContent)
+                            + "%20(Size:%20" + (this.closest('.product-card').querySelector('.size-selector')?.value
+                            || 'N/A' ) + ")" class="buy-now-btn">
                             <i class="fab fa-whatsapp"></i> Buy Now
                         </a>
                     </div>
                 </div>
 
                 <!-- Product 4 -->
-                <div class="product-card" data-id="prod-004" data-category="Tops" data-price="1199.99" data-sizes="XS,S,M,L">
+                <div class="product-card" data-id="prod-004" data-category="tops" data-price="699.99"
+                    data-sizes="XS,S,M,L">
                     <div class="product-image">
-                        <img src="assets/1000289548.jpg" alt="Elegant Top">
+                        <img src="assets/1000289548.jpg" alt="Sky Blue Halter">
                     </div>
                     <div class="product-info">
                         <span class="product-category">Tops</span>
-                        <h3 class="product-title">Silk Blouse</h3>
+                        <h3 class="product-title">Sky Blue Crochet Halter Top</h3>
                         <div class="product-price">
-                            <span class="current-price">R1,199.99</span>
+                            <span class="current-price">R699.99</span>
                         </div>
-                        <select class="size-selector" style="width: 100%; margin-bottom: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                        <select class="size-selector"
+                            style="width: 100%; margin-bottom: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
                             <option value="">Select Size</option>
                             <option value="XS">X-Small (XS)</option>
                             <option value="S">Small (S)</option>
                             <option value="M">Medium (M)</option>
                             <option value="L">Large (L)</option>
                         </select>
-                        <a href="https://wa.me/27697027389?text=Hi%20Sunny,%20I'd%20like%20to%20purchase%20this%20item:%20" + encodeURIComponent(this.closest('.product-card').querySelector('h3').textContent) + "%20(Size:%20" + (this.closest('.product-card').querySelector('.size-selector')?.value || 'N/A') + ")" class="buy-now-btn">
+                        <a href="https://wa.me/27697027389?text=Hi%20Sunny,%20I'd%20like%20to%20purchase%20this%20item:%20"
+                            + encodeURIComponent(this.closest('.product-card').querySelector('h3').textContent)
+                            + "%20(Size:%20" + (this.closest('.product-card').querySelector('.size-selector')?.value
+                            || 'N/A' ) + ")" class="buy-now-btn">
                             <i class="fab fa-whatsapp"></i> Buy Now
                         </a>
                     </div>
                 </div>
 
                 <!-- Product 5 -->
-                <div class="product-card" data-id="prod-005" data-category="Dresses" data-price="899.99" data-sizes="S,M,L,XL">
+                <div class="product-card" data-id="prod-005" data-category="sets" data-price="899.99"
+                    data-sizes="XS,S,M,L">
                     <div class="product-image">
-                        <img src="assets/1000289560.jpg" alt="Casual Dress">
+                        <img src="assets/1000289560.jpg" alt="Pink Bikini Set">
+                        <span class="sale-badge">Sale</span>
                     </div>
                     <div class="product-info">
-                        <span class="product-category">Dresses</span>
-                        <h3 class="product-title">Casual Summer Dress</h3>
+                        <span class="product-category">Sets</span>
+                        <h3 class="product-title">Pink & White Crochet Bikini Set</h3>
                         <div class="product-price">
                             <span class="current-price">R899.99</span>
                         </div>
-                        <select class="size-selector" style="width: 100%; margin-bottom: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                        <select class="size-selector"
+                            style="width: 100%; margin-bottom: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
                             <option value="">Select Size</option>
+                            <option value="XS">X-Small (XS)</option>
                             <option value="S">Small (S)</option>
                             <option value="M">Medium (M)</option>
                             <option value="L">Large (L)</option>
-                            <option value="XL">Extra Large (XL)</option>
                         </select>
-                        <a href="https://wa.me/27697027389?text=Hi%20Sunny,%20I'd%20like%20to%20purchase%20this%20item:%20" + encodeURIComponent(this.closest('.product-card').querySelector('h3').textContent) + "%20(Size:%20" + (this.closest('.product-card').querySelector('.size-selector')?.value || 'N/A') + ")" class="buy-now-btn">
+                        <a href="https://wa.me/27697027389?text=Hi%20Sunny,%20I'd%20like%20to%20purchase%20this%20item:%20"
+                            + encodeURIComponent(this.closest('.product-card').querySelector('h3').textContent)
+                            + "%20(Size:%20" + (this.closest('.product-card').querySelector('.size-selector')?.value
+                            || 'N/A' ) + ")" class="buy-now-btn">
                             <i class="fab fa-whatsapp"></i> Buy Now
                         </a>
                     </div>
                 </div>
 
                 <!-- Product 6 -->
-                <div class="product-card" data-id="prod-006" data-category="Bottoms" data-price="799.99" data-sizes="XS,S,M,L">
+                <div class="product-card" data-id="prod-006" data-category="accessories" data-price="499.99"
+                    data-sizes="One Size">
                     <div class="product-image">
-                        <img src="assets/1000289564.jpg" alt="Elegant Skirt">
+                        <img src="assets/1000289564.jpg" alt="Blue Crochet Bag">
+                        <span class="new-badge">New</span>
                     </div>
                     <div class="product-info">
-                        <span class="product-category">Bottoms</span>
-                        <h3 class="product-title">Midi Skirt</h3>
+                        <span class="product-category">Accessories</span>
+                        <h3 class="product-title">Light Blue Crochet Bag</h3>
                         <div class="product-price">
-                            <span class="current-price">R799.99</span>
+                            <span class="current-price">R499.99</span>
                         </div>
-                        <select class="size-selector" style="width: 100%; margin-bottom: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                        <select class="size-selector"
+                            style="width: 100%; margin-bottom: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
                             <option value="">Select Size</option>
-                            <option value="XS">X-Small (XS)</option>
-                            <option value="S">Small (S)</option>
-                            <option value="M">Medium (M)</option>
-                            <option value="L">Large (L)</option>
+                            <option value="One Size">One Size</option>
                         </select>
-                        <a href="https://wa.me/27697027389?text=Hi%20Sunny,%20I'd%20like%20to%20purchase%20this%20item:%20" + encodeURIComponent(this.closest('.product-card').querySelector('h3').textContent) + "%20(Size:%20" + (this.closest('.product-card').querySelector('.size-selector')?.value || 'N/A') + ")" class="buy-now-btn">
+                        <a href="https://wa.me/27697027389?text=Hi%20Sunny,%20I'd%20like%20to%20purchase%20this%20item:%20"
+                            + encodeURIComponent(this.closest('.product-card').querySelector('h3').textContent)
+                            + "%20(Size:%20" + (this.closest('.product-card').querySelector('.size-selector')?.value
+                            || 'N/A' ) + ")" class="buy-now-btn">
                             <i class="fab fa-whatsapp"></i> Buy Now
                         </a>
                     </div>
                 </div>
 
                 <!-- Product 7 -->
-                <div class="product-card" data-id="prod-007" data-category="Tops" data-price="699.99" data-sizes="XS,S,M,L">
+                <div class="product-card" data-id="prod-007" data-category="sets" data-price="1099.99"
+                    data-sizes="XS,S,M,L">
                     <div class="product-image">
-                        <img src="assets/1000289572.jpg" alt="Stylish Top">
+                        <img src="assets/1000289568.jpg" alt="Royal Blue Set">
                         <span class="sale-badge">Sale</span>
                     </div>
                     <div class="product-info">
-                        <span class="product-category">Tops</span>
-                        <h3 class="product-title">Off-Shoulder Top</h3>
+                        <span class="product-category">Sets</span>
+                        <h3 class="product-title">Royal Blue Two-Piece Set</h3>
                         <div class="product-price">
-                            <span class="current-price">R699.99</span>
+                            <span class="current-price">R1,099.99</span>
                         </div>
-                        <select class="size-selector" style="width: 100%; margin-bottom: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                        <select class="size-selector"
+                            style="width: 100%; margin-bottom: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
                             <option value="">Select Size</option>
                             <option value="XS">X-Small (XS)</option>
                             <option value="S">Small (S)</option>
                             <option value="M">Medium (M)</option>
                             <option value="L">Large (L)</option>
                         </select>
-                        <a href="https://wa.me/27697027389?text=Hi%20Sunny,%20I'd%20like%20to%20purchase%20this%20item:%20" + encodeURIComponent(this.closest('.product-card').querySelector('h3').textContent) + "%20(Size:%20" + (this.closest('.product-card').querySelector('.size-selector')?.value || 'N/A') + ")" class="buy-now-btn">
+                        <a href="https://wa.me/27697027389?text=Hi%20Sunny,%20I'd%20like%20to%20purchase%20this%20item:%20"
+                            + encodeURIComponent(this.closest('.product-card').querySelector('h3').textContent)
+                            + "%20(Size:%20" + (this.closest('.product-card').querySelector('.size-selector')?.value
+                            || 'N/A' ) + ")" class="buy-now-btn">
                             <i class="fab fa-whatsapp"></i> Buy Now
                         </a>
                     </div>
                 </div>
 
                 <!-- Product 8 -->
-                <div class="product-card" data-id="prod-008" data-category="Dresses" data-price="2499.99" data-sizes="S,M,L,XL">
+                <div class="product-card" data-id="prod-008" data-category="accessories" data-price="349.99"
+                    data-sizes="One Size">
                     <div class="product-image">
-                        <img src="assets/1000289576.jpg" alt="Evening Gown">
+                        <img src="assets/1000289576.jpg" alt="Cream Leg Warmers">
                         <span class="new-badge">New</span>
                     </div>
                     <div class="product-info">
-                        <span class="product-category">Dresses</span>
-                        <h3 class="product-title">Evening Gown</h3>
+                        <span class="product-category">Accessories</span>
+                        <h3 class="product-title">Cream Ribbed Crochet Leg Warmers</h3>
                         <div class="product-price">
-                            <span class="current-price">R2,499.99</span>
+                            <span class="current-price">R349.99</span>
                         </div>
-                        <select class="size-selector" style="width: 100%; margin-bottom: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                        <select class="size-selector"
+                            style="width: 100%; margin-bottom: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
                             <option value="">Select Size</option>
-                            <option value="S">Small (S)</option>
-                            <option value="M">Medium (M)</option>
-                            <option value="L">Large (L)</option>
-                            <option value="XL">Extra Large (XL)</option>
+                            <option value="One Size">One Size</option>
                         </select>
-                        <a href="https://wa.me/27697027389?text=Hi%20Sunny,%20I'd%20like%20to%20purchase%20this%20item:%20" + encodeURIComponent(document.querySelector('.product-title').textContent) + "%20(Size:%20" + (document.querySelector('.size-selector')?.value || 'N/A') + ")" class="buy-now-btn">
+                        <a href="https://wa.me/27697027389?text=Hi%20Sunny,%20I'd%20like%20to%20purchase%20this%20item:%20"
+                            + encodeURIComponent(document.querySelector('.product-title').textContent) + "%20(Size:%20"
+                            + (document.querySelector('.size-selector')?.value || 'N/A' ) + ")" class="buy-now-btn">
                             <i class="fab fa-whatsapp"></i> Buy Now
                         </a>
                     </div>
@@ -333,8 +365,9 @@
     </div>
 
     <script src="js/script.js"></script>
+    <script src="js/shop.js"></script>
     <script src="js/cart.js"></script>
     <script src="js/add-chatbot.js"></script>
 </body>
-</html>
 
+</html>
