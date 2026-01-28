@@ -272,7 +272,7 @@ document.addEventListener('DOMContentLoaded', function() {
             };
             
             this.messages.push(message);
-            this.renderMessages();
+            this.appendMessage(message);
             this.scrollToBottom();
             
             // Keep only the last N messages for context
@@ -282,11 +282,57 @@ document.addEventListener('DOMContentLoaded', function() {
                     this.messages[0], // System message
                     ...this.messages.slice(-this.config.maxHistory * 2 + 1)
                 ];
+
+                // Remove old messages from DOM to match state
+                const visibleCount = this.messages.filter(m => m.role !== 'system').length;
+                const messagesContainer = document.querySelector('.chatbot-messages');
+
+                // Check if the pinned message (index 0) is rendered
+                const pinnedMessage = this.messages[0];
+                const isPinnedRendered = pinnedMessage && pinnedMessage.role !== 'system';
+
+                while (messagesContainer.children.length > visibleCount) {
+                    if (isPinnedRendered && messagesContainer.children.length > 1) {
+                        // Remove the second child (first of the rolling window)
+                        messagesContainer.children[1].remove();
+                    } else {
+                        messagesContainer.firstElementChild.remove();
+                    }
+                }
             }
             
             return message;
         },
         
+        // Create a message element
+        createMessageElement(message) {
+            const messageElement = document.createElement('div');
+            messageElement.className = `message ${message.role}`;
+
+            const timeString = new Date(message.time).toLocaleTimeString([], {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            messageElement.innerHTML = `
+                <div class="message-content">
+                    ${message.content}
+                    <span class="message-time">${timeString}</span>
+                </div>
+            `;
+
+            return messageElement;
+        },
+
+        // Append a single message to the DOM
+        appendMessage(message) {
+            if (message.role === 'system') return; // Skip system messages in the UI
+
+            const messagesContainer = document.querySelector('.chatbot-messages');
+            const messageElement = this.createMessageElement(message);
+            messagesContainer.appendChild(messageElement);
+        },
+
         // Render all messages
         renderMessages() {
             const messagesContainer = document.querySelector('.chatbot-messages');
@@ -294,22 +340,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             this.messages.forEach(message => {
                 if (message.role === 'system') return; // Skip system messages in the UI
-                
-                const messageElement = document.createElement('div');
-                messageElement.className = `message ${message.role}`;
-                
-                const timeString = new Date(message.time).toLocaleTimeString([], { 
-                    hour: '2-digit', 
-                    minute: '2-digit' 
-                });
-                
-                messageElement.innerHTML = `
-                    <div class="message-content">
-                        ${message.content}
-                        <span class="message-time">${timeString}</span>
-                    </div>
-                `;
-                
+                const messageElement = this.createMessageElement(message);
                 messagesContainer.appendChild(messageElement);
             });
         },
