@@ -243,23 +243,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Show typing indicator
         showTypingIndicator() {
-            const typingIndicator = document.createElement('div');
-            typingIndicator.className = 'message bot typing';
-            typingIndicator.innerHTML = '<div class="typing-indicator"><span></span><span></span><span></span></div>';
-            document.querySelector('.chatbot-messages').appendChild(typingIndicator);
-            this.scrollToBottom();
-        },
-        
-        // Remove typing indicator
-        removeTypingIndicator() {
-            const typingIndicator = document.querySelector('.typing');
-            if (typingIndicator) {
-                typingIndicator.remove();
-            }
-        },
-        
-        // Show typing indicator
-        showTypingIndicator() {
             const messagesContainer = document.querySelector('.chatbot-messages');
             const typingIndicator = document.createElement('div');
             typingIndicator.className = 'message assistant typing';
