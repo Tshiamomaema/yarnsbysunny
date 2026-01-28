@@ -19,54 +19,74 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 });
 
+function createProductCard(product) {
+    const div = document.createElement('div');
+    div.className = 'product-card fade-in';
+    div.dataset.id = product.id;
+    div.dataset.category = product.category;
+    div.dataset.price = product.price;
+
+    const badgeHtml = product.badge ? `<span class="${product.badge.toLowerCase() === 'new' ? 'new-badge' : 'sale-badge'}">${product.badge}</span>` : '';
+    const sizeOptions = product.sizes.map(size => `<option value="${size}">${size}</option>`).join('');
+
+    div.innerHTML = `
+        <div class="product-image">
+            <img src="${product.image}" alt="${product.name}" loading="lazy">
+            ${badgeHtml}
+        </div>
+        <div class="product-info">
+            <span class="product-category">${capitalizeFirstLetter(product.category)}</span>
+            <h3 class="product-title">${product.name}</h3>
+            <div class="product-price">
+                <span class="current-price">R${product.price.toFixed(2)}</span>
+            </div>
+            <select class="size-selector" aria-label="Select size">
+                <option value="">Select Size</option>
+                ${sizeOptions}
+            </select>
+            <button class="add-to-cart-btn" data-id="${product.id}">
+                <i class="fas fa-shopping-cart"></i> Add to Cart
+            </button>
+        </div>
+    `;
+    return div;
+}
+
 function renderProducts(products) {
     const productsGrid = document.querySelector('.products-grid');
     if (!productsGrid) return;
 
-    productsGrid.innerHTML = products.map(product => {
-        const badgeHtml = product.badge ? `<span class="${product.badge.toLowerCase() === 'new' ? 'new-badge' : 'sale-badge'}">${product.badge}</span>` : '';
+    const fragment = document.createDocumentFragment();
+    const existingCards = new Map();
 
-        const sizeOptions = product.sizes.map(size => `<option value="${size}">${size}</option>`).join('');
-
-        return `
-            <div class="product-card" data-id="${product.id}" data-category="${product.category}" data-price="${product.price}">
-                <div class="product-image">
-                    <img src="${product.image}" alt="${product.name}" loading="lazy">
-                    ${badgeHtml}
-                </div>
-                <div class="product-info">
-                    <span class="product-category">${capitalizeFirstLetter(product.category)}</span>
-                    <h3 class="product-title">${product.name}</h3>
-                    <div class="product-price">
-                        <span class="current-price">R${product.price.toFixed(2)}</span>
-                    </div>
-                    <select class="size-selector" aria-label="Select size">
-                        <option value="">Select Size</option>
-                        ${sizeOptions}
-                    </select>
-                    <button class="add-to-cart-btn" data-id="${product.id}">
-                        <i class="fas fa-shopping-cart"></i> Add to Cart
-                    </button>
-                </div>
-            </div>
-        `;
-    }).join('');
-
-    // Add fade-in animation to new elements
-    const cards = productsGrid.querySelectorAll('.product-card');
-    cards.forEach((card, index) => {
-        card.style.animationDelay = `${index * 0.1}s`;
-        card.classList.add('fade-in');
+    // Index existing cards
+    productsGrid.querySelectorAll('.product-card').forEach(card => {
+        const id = card.dataset.id;
+        if (id) existingCards.set(id, card);
     });
 
-    // Re-attach event listeners for "Add to Cart"
-    // We can delegate this, but since we are re-rendering, attaching to buttons is fine or delegating to grid.
-    // Delegating to grid is better for performance but `js/cart.js` handles logic.
-    // Ideally `js/cart.js` should listen to events on document or we trigger a custom event.
-    // For now, let's use the `cart` instance global from `js/cart.js` if available, or dispatch event.
+    // Clear grid to ensure we only have what we want
+    productsGrid.innerHTML = '';
 
-    // Actually, `js/cart.js` will be refactored to handle clicks on `.add-to-cart-btn`.
-    // So I don't need to do anything here regarding click listeners if I set up delegation in `js/cart.js`.
+    products.forEach((product, index) => {
+        let card = existingCards.get(product.id);
+
+        if (!card) {
+            card = createProductCard(product);
+        }
+
+        // Update animation delay
+        card.style.animationDelay = `${index * 0.1}s`;
+
+        // Ensure fade-in class is present
+        if (!card.classList.contains('fade-in')) {
+            card.classList.add('fade-in');
+        }
+
+        fragment.appendChild(card);
+    });
+
+    productsGrid.appendChild(fragment);
 }
 
 function setupFilters() {
