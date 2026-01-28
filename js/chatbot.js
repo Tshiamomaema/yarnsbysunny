@@ -165,9 +165,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.isTyping = true;
                 this.showTypingIndicator();
                 
-                // Simulate API delay
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                
                 // Generate response based on user input
                 let response = this.generateResponse(userMessage);
                 
