@@ -1,0 +1,74 @@
+[
+  {
+    "id": "prod-001",
+    "name": "Pink & Cream Striped Crochet Set",
+    "category": "sets",
+    "price": 999.99,
+    "sizes": ["S", "M", "L", "XL"],
+    "image": "assets/1000289536.jpg",
+    "badge": "New"
+  },
+  {
+    "id": "prod-002",
+    "name": "Bright Orange Crochet Beanie",
+    "category": "accessories",
+    "price": 299.99,
+    "sizes": ["One Size"],
+    "image": "assets/1000289538.jpg",
+    "badge": "Sale"
+  },
+  {
+    "id": "prod-003",
+    "name": "Black & Orange Two-Tone Halter Top",
+    "category": "tops",
+    "price": 599.99,
+    "sizes": ["XS", "S", "M", "L"],
+    "image": "assets/1000289544.jpg",
+    "badge": "New"
+  },
+  {
+    "id": "prod-004",
+    "name": "Sky Blue Crochet Halter Top",
+    "category": "tops",
+    "price": 699.99,
+    "sizes": ["XS", "S", "M", "L"],
+    "image": "assets/1000289548.jpg",
+    "badge": null
+  },
+  {
+    "id": "prod-005",
+    "name": "Pink & White Crochet Bikini Set",
+    "category": "sets",
+    "price": 899.99,
+    "sizes": ["XS", "S", "M", "L"],
+    "image": "assets/1000289560.jpg",
+    "badge": "Sale"
+  },
+  {
+    "id": "prod-006",
+    "name": "Light Blue Crochet Bag",
+    "category": "accessories",
+    "price": 499.99,
+    "sizes": ["One Size"],
+    "image": "assets/1000289564.jpg",
+    "badge": "New"
+  },
+  {
+    "id": "prod-007",
+    "name": "Royal Blue Two-Piece Set",
+    "category": "sets",
+    "price": 1099.99,
+    "sizes": ["XS", "S", "M", "L"],
+    "image": "assets/1000289568.jpg",
+    "badge": "Sale"
+  },
+  {
+    "id": "prod-008",
+    "name": "Cream Ribbed Crochet Leg Warmers",
+    "category": "accessories",
+    "price": 349.99,
+    "sizes": ["One Size"],
+    "image": "assets/1000289576.jpg",
+    "badge": "New"
+  }
+]
