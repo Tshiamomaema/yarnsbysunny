@@ -26,6 +26,10 @@
                 <a href="gallery.html">Gallery</a>
                 <a href="contact.html">Contact</a>
             </div>
+            <a href="#" class="cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" style="display: none;">0</span>
+            </a>
             <button class="hamburger">
                 <span></span>
                 <span></span>
@@ -65,230 +69,9 @@
             </div>
 
             <div class="products-grid">
-                <!-- Product 1 -->
-                <div class="product-card" data-id="prod-001" data-category="sets" data-price="999.99"
-                    data-sizes="S,M,L,XL">
-                    <div class="product-image">
-                        <img src="assets/1000289536.jpg" alt="Pink Striped Set">
-                        <span class="new-badge">New</span>
-                    </div>
-                    <div class="product-info">
-                        <span class="product-category">Sets</span>
-                        <h3 class="product-title">Pink & Cream Striped Crochet Set</h3>
-                        <div class="price">
-                            <span class="current-price">R999.99</span>
-                        </div>
-                        <select class="size-selector"
-                            style="width: 100%; margin-bottom: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
-                            <option value="">Select Size</option>
-                            <option value="S">Small (S)</option>
-                            <option value="M">Medium (M)</option>
-                            <option value="L">Large (L)</option>
-                            <option value="XL">Extra Large (XL)</option>
-                        </select>
-                        <a href="#" class="buy-now-btn">
-                            <i class="fab fa-whatsapp"></i> Buy Now
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Product 2 -->
-                <div class="product-card" data-id="prod-002" data-category="accessories" data-price="299.99"
-                    data-sizes="One Size">
-                    <div class="product-image">
-                        <img src="assets/1000289538.jpg" alt="Orange Beanie">
-                        <span class="sale-badge">Sale</span>
-                    </div>
-                    <div class="product-info">
-                        <span class="product-category">Accessories</span>
-                        <h3 class="product-title">Bright Orange Crochet Beanie</h3>
-                        <div class="product-price">
-                            <span class="current-price">R299.99</span>
-                        </div>
-                        <select class="size-selector"
-                            style="width: 100%; margin-bottom: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
-                            <option value="">Select Size</option>
-                            <option value="One Size">One Size</option>
-                        </select>
-                        <a href="https://wa.me/27697027389?text=Hi%20Sunny,%20I'd%20like%20to%20purchase%20this%20item:%20"
-                            + encodeURIComponent(this.closest('.product-card').querySelector('h3').textContent)
-                            + "%20(Size:%20" + (this.closest('.product-card').querySelector('.size-selector')?.value
-                            || 'N/A' ) + ")" class="buy-now-btn">
-                            <i class="fab fa-whatsapp"></i> Buy Now
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Product 3 -->
-                <div class="product-card" data-id="prod-003" data-category="tops" data-price="599.99"
-                    data-sizes="XS,S,M,L">
-                    <div class="product-image">
-                        <img src="assets/1000289544.jpg" alt="Two-Tone Halter Top">
-                        <span class="new-badge">New</span>
-                    </div>
-                    <div class="product-info">
-                        <span class="product-category">Tops</span>
-                        <h3 class="product-title">Black & Orange Two-Tone Halter Top</h3>
-                        <div class="product-price">
-                            <span class="current-price">R599.99</span>
-                        </div>
-                        <select class="size-selector"
-                            style="width: 100%; margin-bottom: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
-                            <option value="">Select Size</option>
-                            <option value="XS">X-Small (XS)</option>
-                            <option value="S">Small (S)</option>
-                            <option value="M">Medium (M)</option>
-                            <option value="L">Large (L)</option>
-                        </select>
-                        <a href="https://wa.me/27697027389?text=Hi%20Sunny,%20I'd%20like%20to%20purchase%20this%20item:%20"
-                            + encodeURIComponent(this.closest('.product-card').querySelector('h3').textContent)
-                            + "%20(Size:%20" + (this.closest('.product-card').querySelector('.size-selector')?.value
-                            || 'N/A' ) + ")" class="buy-now-btn">
-                            <i class="fab fa-whatsapp"></i> Buy Now
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Product 4 -->
-                <div class="product-card" data-id="prod-004" data-category="tops" data-price="699.99"
-                    data-sizes="XS,S,M,L">
-                    <div class="product-image">
-                        <img src="assets/1000289548.jpg" alt="Sky Blue Halter">
-                    </div>
-                    <div class="product-info">
-                        <span class="product-category">Tops</span>
-                        <h3 class="product-title">Sky Blue Crochet Halter Top</h3>
-                        <div class="product-price">
-                            <span class="current-price">R699.99</span>
-                        </div>
-                        <select class="size-selector"
-                            style="width: 100%; margin-bottom: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
-                            <option value="">Select Size</option>
-                            <option value="XS">X-Small (XS)</option>
-                            <option value="S">Small (S)</option>
-                            <option value="M">Medium (M)</option>
-                            <option value="L">Large (L)</option>
-                        </select>
-                        <a href="https://wa.me/27697027389?text=Hi%20Sunny,%20I'd%20like%20to%20purchase%20this%20item:%20"
-                            + encodeURIComponent(this.closest('.product-card').querySelector('h3').textContent)
-                            + "%20(Size:%20" + (this.closest('.product-card').querySelector('.size-selector')?.value
-                            || 'N/A' ) + ")" class="buy-now-btn">
-                            <i class="fab fa-whatsapp"></i> Buy Now
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Product 5 -->
-                <div class="product-card" data-id="prod-005" data-category="sets" data-price="899.99"
-                    data-sizes="XS,S,M,L">
-                    <div class="product-image">
-                        <img src="assets/1000289560.jpg" alt="Pink Bikini Set">
-                        <span class="sale-badge">Sale</span>
-                    </div>
-                    <div class="product-info">
-                        <span class="product-category">Sets</span>
-                        <h3 class="product-title">Pink & White Crochet Bikini Set</h3>
-                        <div class="product-price">
-                            <span class="current-price">R899.99</span>
-                        </div>
-                        <select class="size-selector"
-                            style="width: 100%; margin-bottom: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
-                            <option value="">Select Size</option>
-                            <option value="XS">X-Small (XS)</option>
-                            <option value="S">Small (S)</option>
-                            <option value="M">Medium (M)</option>
-                            <option value="L">Large (L)</option>
-                        </select>
-                        <a href="https://wa.me/27697027389?text=Hi%20Sunny,%20I'd%20like%20to%20purchase%20this%20item:%20"
-                            + encodeURIComponent(this.closest('.product-card').querySelector('h3').textContent)
-                            + "%20(Size:%20" + (this.closest('.product-card').querySelector('.size-selector')?.value
-                            || 'N/A' ) + ")" class="buy-now-btn">
-                            <i class="fab fa-whatsapp"></i> Buy Now
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Product 6 -->
-                <div class="product-card" data-id="prod-006" data-category="accessories" data-price="499.99"
-                    data-sizes="One Size">
-                    <div class="product-image">
-                        <img src="assets/1000289564.jpg" alt="Blue Crochet Bag">
-                        <span class="new-badge">New</span>
-                    </div>
-                    <div class="product-info">
-                        <span class="product-category">Accessories</span>
-                        <h3 class="product-title">Light Blue Crochet Bag</h3>
-                        <div class="product-price">
-                            <span class="current-price">R499.99</span>
-                        </div>
-                        <select class="size-selector"
-                            style="width: 100%; margin-bottom: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
-                            <option value="">Select Size</option>
-                            <option value="One Size">One Size</option>
-                        </select>
-                        <a href="https://wa.me/27697027389?text=Hi%20Sunny,%20I'd%20like%20to%20purchase%20this%20item:%20"
-                            + encodeURIComponent(this.closest('.product-card').querySelector('h3').textContent)
-                            + "%20(Size:%20" + (this.closest('.product-card').querySelector('.size-selector')?.value
-                            || 'N/A' ) + ")" class="buy-now-btn">
-                            <i class="fab fa-whatsapp"></i> Buy Now
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Product 7 -->
-                <div class="product-card" data-id="prod-007" data-category="sets" data-price="1099.99"
-                    data-sizes="XS,S,M,L">
-                    <div class="product-image">
-                        <img src="assets/1000289568.jpg" alt="Royal Blue Set">
-                        <span class="sale-badge">Sale</span>
-                    </div>
-                    <div class="product-info">
-                        <span class="product-category">Sets</span>
-                        <h3 class="product-title">Royal Blue Two-Piece Set</h3>
-                        <div class="product-price">
-                            <span class="current-price">R1,099.99</span>
-                        </div>
-                        <select class="size-selector"
-                            style="width: 100%; margin-bottom: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
-                            <option value="">Select Size</option>
-                            <option value="XS">X-Small (XS)</option>
-                            <option value="S">Small (S)</option>
-                            <option value="M">Medium (M)</option>
-                            <option value="L">Large (L)</option>
-                        </select>
-                        <a href="https://wa.me/27697027389?text=Hi%20Sunny,%20I'd%20like%20to%20purchase%20this%20item:%20"
-                            + encodeURIComponent(this.closest('.product-card').querySelector('h3').textContent)
-                            + "%20(Size:%20" + (this.closest('.product-card').querySelector('.size-selector')?.value
-                            || 'N/A' ) + ")" class="buy-now-btn">
-                            <i class="fab fa-whatsapp"></i> Buy Now
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Product 8 -->
-                <div class="product-card" data-id="prod-008" data-category="accessories" data-price="349.99"
-                    data-sizes="One Size">
-                    <div class="product-image">
-                        <img src="assets/1000289576.jpg" alt="Cream Leg Warmers">
-                        <span class="new-badge">New</span>
-                    </div>
-                    <div class="product-info">
-                        <span class="product-category">Accessories</span>
-                        <h3 class="product-title">Cream Ribbed Crochet Leg Warmers</h3>
-                        <div class="product-price">
-                            <span class="current-price">R349.99</span>
-                        </div>
-                        <select class="size-selector"
-                            style="width: 100%; margin-bottom: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
-                            <option value="">Select Size</option>
-                            <option value="One Size">One Size</option>
-                        </select>
-                        <a href="https://wa.me/27697027389?text=Hi%20Sunny,%20I'd%20like%20to%20purchase%20this%20item:%20"
-                            + encodeURIComponent(document.querySelector('.product-title').textContent) + "%20(Size:%20"
-                            + (document.querySelector('.size-selector')?.value || 'N/A' ) + ")" class="buy-now-btn">
-                            <i class="fab fa-whatsapp"></i> Buy Now
-                        </a>
-                    </div>
+                <!-- Products will be loaded dynamically -->
+                <div class="loading-products" style="grid-column: 1/-1; text-align: center; padding: 50px;">
+                    <i class="fas fa-spinner fa-spin fa-3x" style="color: var(--accent-color);"></i>
                 </div>
             </div>
         </div>
@@ -335,38 +118,14 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2023 YARNS by Sunny. All rights reserved.</p>
+                <p>&copy; 2025 YARNS by Sunny. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Cart Sidebar -->
-    <div class="cart-sidebar">
-        <div class="cart-header">
-            <h3>Your Cart</h3>
-            <button class="close-cart">&times;</button>
-        </div>
-        <div class="cart-content">
-            <div class="cart-items">
-                <!-- Cart items will be added here dynamically -->
-            </div>
-            <div class="empty-cart">
-                <p>Your cart is empty</p>
-                <a href="shop.html" class="cta-btn">Continue Shopping</a>
-            </div>
-        </div>
-        <div class="cart-footer">
-            <div class="cart-total">
-                <span>Total:</span>
-                <span class="total-amount">$0.00</span>
-            </div>
-            <a href="checkout.html" class="checkout-btn">Proceed to Checkout</a>
-        </div>
-    </div>
-
     <script src="js/script.js"></script>
-    <script src="js/shop.js"></script>
     <script src="js/cart.js"></script>
+    <script src="js/shop.js"></script>
     <script src="js/add-chatbot.js"></script>
 </body>
 

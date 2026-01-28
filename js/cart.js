@@ -6,12 +6,45 @@ class ShoppingCart {
     }
 
     init() {
+        this.injectCartHTML();
         this.updateCartUI();
-        this.attachEventListeners();
+        this.attachGlobalListeners();
+    }
+
+    injectCartHTML() {
+        if (document.querySelector('.cart-sidebar')) return;
+
+        const cartHTML = `
+            <div class="cart-overlay"></div>
+            <div class="cart-sidebar">
+                <div class="cart-header">
+                    <h3>Your Cart</h3>
+                    <button class="close-cart" aria-label="Close cart">&times;</button>
+                </div>
+                <div class="cart-content">
+                    <div class="cart-items">
+                        <!-- Cart items will be added here dynamically -->
+                    </div>
+                    <div class="empty-cart">
+                        <p>Your cart is empty</p>
+                        <button class="cta-btn close-cart-btn" style="width: 100%; border:none; background: var(--primary-color); color: white; padding: 10px; cursor: pointer;">Continue Shopping</button>
+                    </div>
+                </div>
+                <div class="cart-footer">
+                    <div class="cart-total">
+                        <span>Total:</span>
+                        <span class="total-amount">R0.00</span>
+                    </div>
+                    <button class="checkout-btn">Proceed to Checkout</button>
+                </div>
+            </div>
+        `;
+
+        document.body.insertAdjacentHTML('beforeend', cartHTML);
     }
 
     loadCart() {
-        const savedCart = localStorage.getItem('yarnsBySubmit cart');
+        const savedCart = localStorage.getItem('yarnsBySunnyCart');
         return savedCart ? JSON.parse(savedCart) : [];
     }
 
@@ -36,6 +69,7 @@ class ShoppingCart {
         this.saveCart();
         this.updateCartUI();
         this.showNotification('Item added to cart!');
+        this.toggleCart(true);
     }
 
     removeItem(productId, size) {
@@ -75,17 +109,16 @@ class ShoppingCart {
     updateCartUI() {
         const cartItemsContainer = document.querySelector('.cart-items');
         const emptyCart = document.querySelector('.empty-cart');
-        const cartCount = document.querySelector('.cart-count');
         const totalAmount = document.querySelector('.total-amount');
 
-        if (!cartItemsContainer) return;
-
-        // Update cart count badge
-        if (cartCount) {
+        // Update all cart counters on the page
+        document.querySelectorAll('.cart-count').forEach(el => {
             const count = this.getItemCount();
-            cartCount.textContent = count;
-            cartCount.style.display = count > 0 ? 'flex' : 'none';
-        }
+            el.textContent = count;
+            el.style.display = count > 0 ? 'flex' : 'none';
+        });
+
+        if (!cartItemsContainer) return;
 
         // Update total
         if (totalAmount) {
@@ -94,12 +127,15 @@ class ShoppingCart {
 
         // Show/hide empty cart message
         if (this.items.length === 0) {
-            if (cartItemsContainer) cartItemsContainer.innerHTML = '';
+            cartItemsContainer.innerHTML = '';
             if (emptyCart) emptyCart.style.display = 'block';
+            document.querySelector('.cart-footer').style.display = 'none';
             return;
         }
 
         if (emptyCart) emptyCart.style.display = 'none';
+        const footer = document.querySelector('.cart-footer');
+        if (footer) footer.style.display = 'block';
 
         // Render cart items
         cartItemsContainer.innerHTML = this.items.map(item => `
@@ -115,81 +151,101 @@ class ShoppingCart {
                         <button class="quantity-btn" data-action="increase">+</button>
                     </div>
                 </div>
-                <button class="remove-item" data-id="${item.id}" data-size="${item.size}">
+                <button class="remove-item" data-id="${item.id}" data-size="${item.size}" aria-label="Remove item">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
         `).join('');
-
-        // Reattach event listeners for cart items
-        this.attachCartItemListeners();
     }
 
-    attachEventListeners() {
-        // Cart icon click
-        const cartIcon = document.querySelector('.cart-icon');
-        const cartSidebar = document.querySelector('.cart-sidebar');
-        const closeCart = document.querySelector('.close-cart');
-        const cartOverlay = document.querySelector('.cart-overlay');
-
-        if (cartIcon && cartSidebar) {
-            cartIcon.addEventListener('click', (e) => {
+    attachGlobalListeners() {
+        // Toggle Cart
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.cart-icon')) {
                 e.preventDefault();
-                cartSidebar.classList.add('active');
-                if (cartOverlay) cartOverlay.classList.add('active');
-            });
-        }
+                this.toggleCart(true);
+            }
 
-        if (closeCart && cartSidebar) {
-            closeCart.addEventListener('click', () => {
-                cartSidebar.classList.remove('active');
-                if (cartOverlay) cartOverlay.classList.remove('active');
-            });
-        }
+            if (e.target.closest('.close-cart') || e.target.closest('.close-cart-btn') || e.target.classList.contains('cart-overlay')) {
+                this.toggleCart(false);
+            }
 
-        if (cartOverlay) {
-            cartOverlay.addEventListener('click', () => {
-                cartSidebar.classList.remove('active');
-                cartOverlay.classList.remove('active');
-            });
-        }
-
-        // WhatsApp checkout
-        const checkoutBtn = document.querySelector('.checkout-btn');
-        if (checkoutBtn) {
-            checkoutBtn.addEventListener('click', (e) => {
+            // Checkout
+            if (e.target.closest('.checkout-btn')) {
                 e.preventDefault();
                 this.checkoutViaWhatsApp();
-            });
-        }
-    }
+            }
 
-    attachCartItemListeners() {
-        // Remove item buttons
-        document.querySelectorAll('.remove-item').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const productId = btn.dataset.id;
-                const size = btn.dataset.size;
-                this.removeItem(productId, size);
-            });
-        });
+            // Cart Item Actions
+            if (e.target.closest('.remove-item')) {
+                const btn = e.target.closest('.remove-item');
+                this.removeItem(btn.dataset.id, btn.dataset.size);
+            }
 
-        // Quantity buttons
-        document.querySelectorAll('.quantity-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
+            if (e.target.closest('.quantity-btn')) {
+                const btn = e.target.closest('.quantity-btn');
                 const cartItem = btn.closest('.cart-item');
                 const productId = cartItem.dataset.id;
                 const size = cartItem.dataset.size;
-                const quantityInput = cartItem.querySelector('.quantity-input');
-                const currentQuantity = parseInt(quantityInput.value);
+                const currentQuantity = parseInt(cartItem.querySelector('.quantity-input').value);
 
                 if (btn.dataset.action === 'increase') {
                     this.updateQuantity(productId, size, currentQuantity + 1);
                 } else if (btn.dataset.action === 'decrease') {
                     this.updateQuantity(productId, size, currentQuantity - 1);
                 }
-            });
+            }
+
+            // Add to Cart (Global delegation)
+            if (e.target.closest('.add-to-cart-btn')) {
+                e.preventDefault();
+                const btn = e.target.closest('.add-to-cart-btn');
+                const productCard = btn.closest('.product-card');
+
+                if (!productCard) return;
+
+                const sizeSelector = productCard.querySelector('.size-selector');
+                const selectedSize = sizeSelector ? sizeSelector.value : 'One Size';
+
+                // Check if size is selected (if selector exists and isn't "One Size" hardcoded in dataset but user must select)
+                // In my JSON, sizes is array. The selector has value="".
+                if (sizeSelector && !selectedSize) {
+                    alert('Please select a size');
+                    sizeSelector.focus();
+                    return;
+                }
+
+                // If the product has "One Size" only, the selector might be hidden or auto-selected?
+                // In my generated HTML, I always generate a select box.
+                // The select box for One Size has value "One Size".
+
+                const product = {
+                    id: productCard.dataset.id,
+                    name: productCard.querySelector('.product-title').textContent,
+                    price: parseFloat(productCard.dataset.price),
+                    category: productCard.dataset.category,
+                    size: selectedSize,
+                    image: productCard.querySelector('.product-image img').src
+                };
+
+                this.addItem(product);
+            }
         });
+    }
+
+    toggleCart(show) {
+        const sidebar = document.querySelector('.cart-sidebar');
+        const overlay = document.querySelector('.cart-overlay');
+
+        if (show) {
+            sidebar.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        } else {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
     }
 
     checkoutViaWhatsApp() {
@@ -216,13 +272,17 @@ class ShoppingCart {
     }
 
     showNotification(message) {
+        // Remove existing notifications
+        const existing = document.querySelector('.cart-notification');
+        if (existing) existing.remove();
+
         // Create notification element
         const notification = document.createElement('div');
         notification.className = 'cart-notification';
         notification.textContent = message;
         notification.style.cssText = `
             position: fixed;
-            top: 100px;
+            top: 20px;
             right: 20px;
             background: var(--accent-color, #c8a97e);
             color: white;
@@ -244,71 +304,3 @@ class ShoppingCart {
 
 // Initialize cart
 const cart = new ShoppingCart();
-
-// Add to cart functionality for product cards
-function setupProductCards() {
-    document.querySelectorAll('.buy-now-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const productCard = this.closest('.product-card');
-            if (!productCard) return;
-
-            const sizeSelector = productCard.querySelector('.size-selector');
-            const selectedSize = sizeSelector ? sizeSelector.value : '';
-
-            if (!selectedSize) {
-                alert('Please select a size');
-                return;
-            }
-
-            const product = {
-                id: productCard.dataset.id,
-                name: productCard.querySelector('.product-title').textContent,
-                price: parseFloat(productCard.dataset.price),
-                category: productCard.dataset.category,
-                size: selectedSize,
-                image: productCard.querySelector('.product-image img').src
-            };
-
-            // Single item WhatsApp purchase
-            const message = `Hi Sunny, I'd like to purchase:\n\n${product.name}\nSize: ${product.size}\nPrice: R${product.price.toFixed(2)}`;
-            const whatsappUrl = `https://wa.me/27697027389?text=${encodeURIComponent(message)}`;
-            window.open(whatsappUrl, '_blank');
-        });
-    });
-}
-
-// Initialize when DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupProductCards);
-} else {
-    setupProductCards();
-}
-
-// Add CSS for notifications
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideInRight {
-        from {
-            transform: translateX(400px);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
-    }
-    
-    @keyframes slideOutRight {
-        from {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        to {
-            transform: translateX(400px);
-            opacity: 0;
-        }
-    }
-`;
-document.head.appendChild(style);
