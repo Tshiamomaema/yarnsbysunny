@@ -8,6 +8,7 @@ class ShoppingCart {
     init() {
         this.injectCartHTML();
         this.updateCartUI();
+        this.attachCartListeners();
         this.attachGlobalListeners();
     }
 
@@ -158,15 +159,13 @@ class ShoppingCart {
         `).join('');
     }
 
-    attachGlobalListeners() {
-        // Toggle Cart
-        document.addEventListener('click', (e) => {
-            if (e.target.closest('.cart-icon')) {
-                e.preventDefault();
-                this.toggleCart(true);
-            }
+    attachCartListeners() {
+        const sidebar = document.querySelector('.cart-sidebar');
+        if (!sidebar) return;
 
-            if (e.target.closest('.close-cart') || e.target.closest('.close-cart-btn') || e.target.classList.contains('cart-overlay')) {
+        sidebar.addEventListener('click', (e) => {
+            // Close Cart (from within sidebar)
+            if (e.target.closest('.close-cart') || e.target.closest('.close-cart-btn')) {
                 this.toggleCart(false);
             }
 
@@ -185,15 +184,33 @@ class ShoppingCart {
             if (e.target.closest('.quantity-btn')) {
                 const btn = e.target.closest('.quantity-btn');
                 const cartItem = btn.closest('.cart-item');
-                const productId = cartItem.dataset.id;
-                const size = cartItem.dataset.size;
-                const currentQuantity = parseInt(cartItem.querySelector('.quantity-input').value);
+                if (cartItem) {
+                    const productId = cartItem.dataset.id;
+                    const size = cartItem.dataset.size;
+                    const currentQuantity = parseInt(cartItem.querySelector('.quantity-input').value);
 
-                if (btn.dataset.action === 'increase') {
-                    this.updateQuantity(productId, size, currentQuantity + 1);
-                } else if (btn.dataset.action === 'decrease') {
-                    this.updateQuantity(productId, size, currentQuantity - 1);
+                    if (btn.dataset.action === 'increase') {
+                        this.updateQuantity(productId, size, currentQuantity + 1);
+                    } else if (btn.dataset.action === 'decrease') {
+                        this.updateQuantity(productId, size, currentQuantity - 1);
+                    }
                 }
+            }
+        });
+    }
+
+    attachGlobalListeners() {
+        // Global listeners for events outside the cart sidebar
+        document.addEventListener('click', (e) => {
+            // Toggle Cart (Icon)
+            if (e.target.closest('.cart-icon')) {
+                e.preventDefault();
+                this.toggleCart(true);
+            }
+
+            // Close Cart (Overlay)
+            if (e.target.classList.contains('cart-overlay')) {
+                this.toggleCart(false);
             }
 
             // Add to Cart (Global delegation)
@@ -207,17 +224,11 @@ class ShoppingCart {
                 const sizeSelector = productCard.querySelector('.size-selector');
                 const selectedSize = sizeSelector ? sizeSelector.value : 'One Size';
 
-                // Check if size is selected (if selector exists and isn't "One Size" hardcoded in dataset but user must select)
-                // In my JSON, sizes is array. The selector has value="".
                 if (sizeSelector && !selectedSize) {
                     alert('Please select a size');
                     sizeSelector.focus();
                     return;
                 }
-
-                // If the product has "One Size" only, the selector might be hidden or auto-selected?
-                // In my generated HTML, I always generate a select box.
-                // The select box for One Size has value "One Size".
 
                 const product = {
                     id: productCard.dataset.id,
